@@ -6,7 +6,7 @@ public class PlayerConfig : ScriptableObject
 {
     [Tooltip("—корость передвижени€ игрока")]
     [Min(1f)]
-    [SerializeField] private float _speed = 150f;
+    [SerializeField] private float _speed = 5f;
     [Tooltip("ћаска слоев, по которым может перемещатьс€ игрок")]
     [SerializeField] private LayerMask _layerMask;
 

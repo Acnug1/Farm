@@ -5,7 +5,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SurfaceSlider))]
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : State
 {
     private const string PlayerInputErrorMessage = "PlayerInput is null";
     private const string PlayerConfigErrorMessage = "PlayerConfig is null";
@@ -35,12 +35,13 @@ public class PlayerMove : MonoBehaviour
         _layerMask = _playerConfig.LayerMask;
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         _direction = GetDirection(_playerInput.Direction);
+
         Vector3 directionAlongSurface = _surfaceSlider.GetDirectionAlongSurface(_direction, _layerMask);
 
-        if (directionAlongSurface != Vector3.zero)
+        if (_direction != Vector3.zero)
         {
             Move(directionAlongSurface);
             Rotate(directionAlongSurface);
@@ -56,7 +57,9 @@ public class PlayerMove : MonoBehaviour
 
     private void Move(Vector3 direction)
     {
-        _rigidbody.velocity = direction * _speed * Time.fixedDeltaTime;
+        Vector3 offset = direction * _speed * Time.fixedDeltaTime;
+
+        _rigidbody.MovePosition(_rigidbody.position + offset);
         SpeedChanged?.Invoke(_speed);
     }
 
@@ -67,7 +70,6 @@ public class PlayerMove : MonoBehaviour
 
     private void Stop()
     {
-        _rigidbody.velocity = new Vector3(0, _rigidbody.velocity.y, 0);
         SpeedChanged?.Invoke(0);
     }
 }
