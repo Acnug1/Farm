@@ -5,15 +5,15 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SurfaceSlider))]
 
-public class PlayerMove : State
+public class PlayerMove : MonoBehaviour
 {
     private const string PlayerInputErrorMessage = "PlayerInput is null";
     private const string PlayerConfigErrorMessage = "PlayerConfig is null";
 
     [Tooltip("—сылка на PlayerInput")]
     [SerializeField] private PlayerInput _playerInput;
-    [Tooltip("—сылка на ScriptacleObject: PlayerConfig")]
-    [SerializeField] private PlayerConfig _playerConfig;
+    [Tooltip("—сылка на ScriptableObject: PlayerConfig")]
+    [SerializeField] private PlayerMoveConfig _playerConfig;
 
     private Rigidbody _rigidbody;
     private SurfaceSlider _surfaceSlider;
@@ -35,7 +35,7 @@ public class PlayerMove : State
         _layerMask = _playerConfig.LayerMask;
     }
 
-    protected override void FixedUpdate()
+    private void FixedUpdate()
     {
         _direction = GetDirection(_playerInput.Direction);
 

@@ -47,8 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _plantPrefab: {fileID: 8425080646339928087, guid: a8c7ea251f88a1942ada4742c2f85174, type: 3}
   _plantContainer: {fileID: 8018995130379351227}
-  _targetScaleY: 1
-  _growthTime: 10
+  _cultureConfig: {fileID: 11400000, guid: 949f430679a857f4fa2a31a6f7e765a7, type: 2}
 --- !u!1 &5452796793003511078
 GameObject:
   m_ObjectHideFlags: 0

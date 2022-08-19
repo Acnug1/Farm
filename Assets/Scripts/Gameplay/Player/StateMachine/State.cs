@@ -6,6 +6,16 @@ public abstract class State : MonoBehaviour
     [Tooltip("Список переходов из текущего состояния")]
     [SerializeField] private List<Transition> _transitions;
 
+    private void OnEnable()
+    {
+        OnStateEnter();
+    }
+
+    private void OnDisable()
+    {
+        OnStateExit();
+    }
+
     public void Enter()
     {
         if (enabled == false)
@@ -14,8 +24,6 @@ public abstract class State : MonoBehaviour
 
             foreach (Transition transition in _transitions)
                 transition.enabled = true;
-
-            OnStateEnter();
         }
     }
 
@@ -27,8 +35,6 @@ public abstract class State : MonoBehaviour
                 transition.enabled = false;
 
             enabled = false;
-
-            OnStateExit();
         }
     }
 
@@ -42,6 +48,8 @@ public abstract class State : MonoBehaviour
 
         return null;
     }
+
+    protected virtual void Awake() { }
 
     /// <summary>
     /// Вызывается, когда это состояние становится активным

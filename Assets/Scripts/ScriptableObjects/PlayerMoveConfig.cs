@@ -1,8 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New PlayerConfig", menuName = "Player/Create new PlayerConfig", order = 51)]
+[CreateAssetMenu(fileName = "New PlayerMoveConfig", menuName = "Player/Create new PlayerMoveConfig", order = 51)]
 
-public class PlayerConfig : ScriptableObject
+public class PlayerMoveConfig : ScriptableObject
 {
     [Tooltip("Скорость передвижения игрока")]
     [Min(1f)]

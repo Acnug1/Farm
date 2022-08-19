@@ -5,18 +5,17 @@ public class Culture : MonoBehaviour
 {
     private const string PlantErrorMessage = "Plant is null";
     private const string PlantContainerErrorMessage = "PlantContainer is null";
+    private const string CultureConfigErrorMessage = "CultureConfig is null";
 
     [Tooltip("Ссылка на префаб растения, которое должно расти")]
     [SerializeField] private Plant _plantPrefab;
     [Tooltip("Контейнер, в котором будет посажено растение")]
     [SerializeField] private Transform _plantContainer;
-    [Tooltip("Целевое значение для роста растения по оси Y")]
-    [Range(0.1f, 1f)]
-    [SerializeField] private float _targetScaleY = 1f;
-    [Tooltip("Время роста растения")]
-    [Min(1f)]
-    [SerializeField] private float _growthTime = 10f;
+    [Tooltip("Ссылка на ScriptableObject: CultureConfig")]
+    [SerializeField] private CultureConfig _cultureConfig;
 
+    private float _targetScaleY;
+    private float _growthTime;
     private Plant _plant;
     private Coroutine _grow;
 
@@ -26,6 +25,10 @@ public class Culture : MonoBehaviour
     {
         Debug.Assert(_plantPrefab != null, PlantErrorMessage);
         Debug.Assert(_plantContainer != null, PlantContainerErrorMessage);
+        Debug.Assert(_cultureConfig != null, CultureConfigErrorMessage);
+
+        _targetScaleY = _cultureConfig.TargetScaleY;
+        _growthTime = _cultureConfig.GrowthTime;
     }
 
     public void Destroy(Plant plant)

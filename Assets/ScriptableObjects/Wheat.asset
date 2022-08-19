@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1984f6a96cb361649ae1f4491aaf9927, type: 3}
-  m_Name: PlayerConfig
+  m_Script: {fileID: 11500000, guid: 10a73ed87dcca6645b88a61d1dab2fb4, type: 3}
+  m_Name: Wheat
   m_EditorClassIdentifier: 
-  _speed: 5
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 128
+  _targetScaleY: 1
+  _growthTime: 10
