@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetDetectedTransition : Transition
+public class TargetLostTransition : Transition
 {
     private const string PlayerRadarConfigErrorMessage = "PlayerRadarConfig is null";
 
@@ -9,7 +9,7 @@ public class TargetDetectedTransition : Transition
     [SerializeField] private PlayerRadarConfig _playerRadarConfig;
 
     private TargetsRadar _targetsRadar;
-    private float _detectionTargetAngle;
+    private float _lostTargetAngle;
 
     protected override void OnTransitionAwake()
     {
@@ -17,23 +17,22 @@ public class TargetDetectedTransition : Transition
 
         _targetsRadar = GetComponentInChildren<TargetsRadar>();
 
-        _detectionTargetAngle = _playerRadarConfig.DetectionTargetAngle;
+        _lostTargetAngle = _playerRadarConfig.LostTargetAngle;
     }
 
     protected override void Update()
     {
-        TryFindAvailableTarget(_targetsRadar.TargetsInRadius);
+        CheckNonAvailableTargets(_targetsRadar.TargetsInRadius);
     }
 
-    private void TryFindAvailableTarget(IReadOnlyList<GameObject> targets)
+    private void CheckNonAvailableTargets(IReadOnlyList<GameObject> targets)
     {
         foreach (GameObject target in targets)
         {
-            if (_targetsRadar.IsAvailableTarget(target.transform.position, _detectionTargetAngle))
-            { 
-                NeedTransit = true;
-                break;
-            }
+            if (_targetsRadar.IsAvailableTarget(target.transform.position, _lostTargetAngle))
+                return;
         }
+
+        NeedTransit = true;
     }
 }

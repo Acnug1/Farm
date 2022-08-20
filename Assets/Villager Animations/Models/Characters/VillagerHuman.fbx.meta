@@ -1062,7 +1062,7 @@ ModelImporter:
     - name: B-thumb_01_L
       parentName: B-palm_01_L
       position: {x: 0.03406574, y: -0.009698732, z: 0.0074327867}
-      rotation: {x: 0.5821277, y: -0.22046109, z: -0.36101106, w: 0.69440275}
+      rotation: {x: 0.58212775, y: -0.2204611, z: -0.3610111, w: 0.6944028}
       scale: {x: 1.0000001, y: 1.0000001, z: 1}
     - name: B-thumb_02_L
       parentName: B-thumb_01_L
@@ -1137,7 +1137,7 @@ ModelImporter:
     - name: B-shoulder_R
       parentName: B-upperChest
       position: {x: -0.20827729, y: 0.000000015724504, z: 0.000000005364418}
-      rotation: {x: 0.48367432, y: -0.51262695, z: -0.4545765, w: 0.5446402}
+      rotation: {x: 0.48367435, y: -0.512627, z: -0.45457652, w: 0.54464024}
       scale: {x: 1, y: 1, z: 0.9999999}
     - name: B-upper_arm_R
       parentName: B-shoulder_R
@@ -1197,7 +1197,7 @@ ModelImporter:
     - name: B-f_middle_01_R
       parentName: B-palm_02_R
       position: {x: -0.06446428, y: -0.000000014305114, z: -0.000000054547563}
-      rotation: {x: -0.004266027, y: -0.022075772, z: -0.0059232498, w: 0.99972975}
+      rotation: {x: -0.0042660264, y: -0.022075772, z: -0.005923249, w: 0.99972975}
       scale: {x: 1, y: 1, z: 1}
     - name: B-f_middle_02_R
       parentName: B-f_middle_01_R

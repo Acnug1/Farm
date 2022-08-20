@@ -7,6 +7,23 @@ public class TargetsRadar : MonoBehaviour
 
     public IReadOnlyList<GameObject> TargetsInRadius => _targetsInRadius;
 
+    public bool IsAvailableTarget(Vector3 target, float angle)
+    {
+        Vector3 direction = (target - transform.position);
+        float dot = Vector3.Dot(transform.forward, direction.normalized);
+
+        if (dot < 1)
+        {
+            float angleRadians = Mathf.Acos(dot);
+            float angleDegrees = angleRadians * Mathf.Rad2Deg;
+            return angleDegrees <= angle;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Plant plant))

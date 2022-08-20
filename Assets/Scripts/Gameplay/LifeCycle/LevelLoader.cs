@@ -30,7 +30,7 @@ public class LevelLoader : MonoBehaviour
     {
         _animator.SetTrigger(StartTransition);
 
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0).Length);
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
 
         SceneManager.LoadScene(sceneName);
     }

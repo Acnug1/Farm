@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 [DefaultExecutionOrder(200)]
 [RequireComponent(typeof(Rigidbody))]
@@ -8,31 +7,31 @@ using UnityEngine.Events;
 public class PlayerMove : MonoBehaviour
 {
     private const string PlayerInputErrorMessage = "PlayerInput is null";
-    private const string PlayerConfigErrorMessage = "PlayerConfig is null";
+    private const string PlayerMoveConfigErrorMessage = "PlayerMoveConfig is null";
 
     [Tooltip("—сылка на PlayerInput")]
     [SerializeField] private PlayerInput _playerInput;
-    [Tooltip("—сылка на ScriptableObject: PlayerConfig")]
-    [SerializeField] private PlayerMoveConfig _playerConfig;
+    [Tooltip("—сылка на ScriptableObject: PlayerMoveConfig")]
+    [SerializeField] private PlayerMoveConfig _playerMoveConfig;
 
     private Rigidbody _rigidbody;
     private SurfaceSlider _surfaceSlider;
+    private PlayerAnimatorController _playerAnimatorController;
     private Vector3 _direction;
     private float _speed;
     private LayerMask _layerMask;
 
-    public event UnityAction<float> SpeedChanged;
-
     private void Awake()
     {
         Debug.Assert(_playerInput != null, PlayerInputErrorMessage);
-        Debug.Assert(_playerConfig != null, PlayerConfigErrorMessage);
+        Debug.Assert(_playerMoveConfig != null, PlayerMoveConfigErrorMessage);
 
         _rigidbody = GetComponent<Rigidbody>();
         _surfaceSlider = GetComponent<SurfaceSlider>();
+        _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
 
-        _speed = _playerConfig.Speed;
-        _layerMask = _playerConfig.LayerMask;
+        _speed = _playerMoveConfig.Speed;
+        _layerMask = _playerMoveConfig.LayerMask;
     }
 
     private void FixedUpdate()
@@ -60,7 +59,8 @@ public class PlayerMove : MonoBehaviour
         Vector3 offset = direction * _speed * Time.fixedDeltaTime;
 
         _rigidbody.MovePosition(_rigidbody.position + offset);
-        SpeedChanged?.Invoke(_speed);
+
+        _playerAnimatorController.SpeedChanged(_speed);
     }
 
     private void Rotate(Vector3 direction)
@@ -70,6 +70,6 @@ public class PlayerMove : MonoBehaviour
 
     private void Stop()
     {
-        SpeedChanged?.Invoke(0);
+        _playerAnimatorController.SpeedChanged(0);
     }
 }

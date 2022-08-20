@@ -8,6 +8,7 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private State _firstState;
 
     private State _currentState;
+    private PlayerAnimatorController _playerAnimatorController;
 
     public State CurrentState => _currentState;
 
@@ -23,6 +24,7 @@ public class PlayerStateMachine : MonoBehaviour
     private void Start()
     {
         Debug.Assert(_firstState != null, FirstStateErrorMessage);
+        _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
     }
 
     private void Update()
@@ -44,7 +46,7 @@ public class PlayerStateMachine : MonoBehaviour
         _currentState = firstState;
 
         if (_currentState != null)
-            _currentState.Enter();
+            _currentState.Enter(_playerAnimatorController);
     }
 
     private void Transit(State nextState)
@@ -55,6 +57,6 @@ public class PlayerStateMachine : MonoBehaviour
         _currentState = nextState;
 
         if (_currentState != null)
-            _currentState.Enter();
+            _currentState.Enter(_playerAnimatorController);
     }
 }

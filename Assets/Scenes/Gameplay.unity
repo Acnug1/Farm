@@ -351,6 +351,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 678934774, guid: d587de066b5f0f34083d47cd373fa369, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 210581330307385626, guid: d587de066b5f0f34083d47cd373fa369, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 576110951378576888, guid: d587de066b5f0f34083d47cd373fa369, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2213312197070538037, guid: d587de066b5f0f34083d47cd373fa369, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2213312197070538037, guid: d587de066b5f0f34083d47cd373fa369, type: 3}
+      propertyPath: _playerCutConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 18e807810988264498f914ce25637833, type: 2}
     - target: {fileID: 2420365381160998814, guid: d587de066b5f0f34083d47cd373fa369, type: 3}
       propertyPath: _playerInput
       value: 
@@ -402,6 +422,10 @@ PrefabInstance:
     - target: {fileID: 2420365382381298142, guid: d587de066b5f0f34083d47cd373fa369, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508338952088194591, guid: d587de066b5f0f34083d47cd373fa369, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d587de066b5f0f34083d47cd373fa369, type: 3}

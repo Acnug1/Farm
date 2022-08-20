@@ -6,6 +6,8 @@ public abstract class State : MonoBehaviour
     [Tooltip("Список переходов из текущего состояния")]
     [SerializeField] private List<Transition> _transitions;
 
+    protected PlayerAnimatorController PlayerAnimatorController { get; private set; }
+
     private void OnEnable()
     {
         OnStateEnter();
@@ -16,14 +18,19 @@ public abstract class State : MonoBehaviour
         OnStateExit();
     }
 
-    public void Enter()
+    public void Enter(PlayerAnimatorController playerAnimatorController)
     {
         if (enabled == false)
         {
+            PlayerAnimatorController = playerAnimatorController;
+
             enabled = true;
 
             foreach (Transition transition in _transitions)
+            {
+                transition.Init(playerAnimatorController, this);
                 transition.enabled = true;
+            }
         }
     }
 

@@ -3,13 +3,15 @@ using UnityEngine;
 public abstract class Transition : MonoBehaviour
 {
     private const string TargetStateErrorMessage = "TargetState is null";
-   
+
     [Tooltip("Целевое состояние, которое активируется после успешного перехода")]
     [SerializeField] private State _targetState;
 
     public State TargetState => _targetState;
 
     public bool NeedTransit { get; protected set; }
+    protected PlayerAnimatorController PlayerAnimatorController { get; private set; }
+    protected State CurrentState { get; private set; }
 
     private void Awake()
     {
@@ -21,6 +23,12 @@ public abstract class Transition : MonoBehaviour
     {
         NeedTransit = false;
         OnTransitionEnter();
+    }
+
+    public void Init(PlayerAnimatorController playerAnimatorController, State currentState)
+    {
+        PlayerAnimatorController = playerAnimatorController;
+        CurrentState = currentState;
     }
 
     /// <summary>

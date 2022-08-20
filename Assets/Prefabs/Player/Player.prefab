@@ -12,11 +12,13 @@ GameObject:
   - component: {fileID: 2420365381160998817}
   - component: {fileID: 2420365381160998816}
   - component: {fileID: 2420365381160998815}
-  - component: {fileID: 1244381297098039083}
   - component: {fileID: 2420365381160998814}
   - component: {fileID: 2420365381160998818}
   - component: {fileID: 2508338952088194591}
   - component: {fileID: 678934774}
+  - component: {fileID: 576110951378576888}
+  - component: {fileID: 2213312197070538037}
+  - component: {fileID: 210581330307385626}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -82,18 +84,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1910788a78e9abb42be696ee02ef08e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1244381297098039083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420365382381298141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22aab5bf6775e8c40be3305e8ac54264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2420365381160998814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 0}
-  _playerConfig: {fileID: 11400000, guid: 71a8b46787e7b95428c3f6994d332b16, type: 2}
+  _playerMoveConfig: {fileID: 11400000, guid: 71a8b46787e7b95428c3f6994d332b16, type: 2}
 --- !u!114 &2420365381160998818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +135,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c657d1189369c404193b43cd106a4cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitions: []
+  _transitions:
+  - {fileID: 576110951378576888}
+--- !u!114 &576110951378576888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420365382381298141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51876ece8ed22dd40a2ee9cb3d30e520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetState: {fileID: 2213312197070538037}
+  _playerRadarConfig: {fileID: 11400000, guid: b7a134ea40594944a8f2813fd01a1200, type: 2}
+--- !u!114 &2213312197070538037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420365382381298141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 405d32315b33355438eb05e8110c1388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitions:
+  - {fileID: 210581330307385626}
+--- !u!114 &210581330307385626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420365382381298141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23a91dd8ec0c094d90d7c8c6af1976d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetState: {fileID: 678934774}
+  _playerRadarConfig: {fileID: 11400000, guid: b7a134ea40594944a8f2813fd01a1200, type: 2}
 --- !u!1 &5516242207472693243
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6206138541356153821}
   - component: {fileID: 788351061979138260}
+  - component: {fileID: 2420365381160998819}
   m_Layer: 6
   m_Name: Radar
   m_TagString: Untagged
@@ -190,6 +224,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2420365381160998819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516242207472693243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22aab5bf6775e8c40be3305e8ac54264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2420365382140857840
 PrefabInstance:
   m_ObjectHideFlags: 0

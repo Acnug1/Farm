@@ -6,29 +6,31 @@ using UnityEngine;
 public class PlayerAnimatorController : MonoBehaviour
 {
     private Animator _animator;
-    private PlayerMove _playerMove;
     private int _moveSpeedId;
+    private int _cutId;
+
+    public float LengthOfCurrentClip => _animator.GetCurrentAnimatorStateInfo(0).length;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _playerMove = GetComponentInParent<PlayerMove>();
 
         _moveSpeedId = Animator.StringToHash("MoveSpeed");
+        _cutId = Animator.StringToHash("Cut");
     }
 
-    private void OnEnable()
-    {
-        _playerMove.SpeedChanged += OnSpeedChanged;
-    }
-
-    private void OnDisable()
-    {
-        _playerMove.SpeedChanged -= OnSpeedChanged;
-    }
-
-    private void OnSpeedChanged(float speed)
+    public void SpeedChanged(float speed)
     {
         _animator.SetFloat(_moveSpeedId, speed);
+    }
+
+    public void Cut()
+    {
+        _animator.SetTrigger(_cutId);
+    }
+
+    public void ResetCut()
+    {
+        _animator.ResetTrigger(_cutId);
     }
 }

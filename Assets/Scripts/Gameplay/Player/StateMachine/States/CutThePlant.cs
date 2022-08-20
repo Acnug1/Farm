@@ -3,43 +3,60 @@ using UnityEngine;
 
 public class CutThePlant : State
 {
-    private AttackState State = AttackState.Ready;
+    private const string PlayerCutConfigErrorMessage = "PlayerCutConfig is null";
 
-    private enum AttackState
+    [Tooltip("—сылка на ScriptableObject: PlayerCutConfig")]
+    [SerializeField] private PlayerCutConfig _playerCutConfig;
+
+    private CutState _state = CutState.Ready;
+    private Coroutine _cut;
+    private float _cutDelay;
+
+    private enum CutState
     {
         Ready,
-        WaitingAttackEnd,
+        WaitingCutEnd
+    }
+
+    protected override void Awake()
+    {
+        Debug.Assert(_playerCutConfig != null, PlayerCutConfigErrorMessage);
+
+        _cutDelay = _playerCutConfig.CutDelay;
+    }
+
+    protected override void OnStateExit()
+    {
+        PlayerAnimatorController.ResetCut();
     }
 
     protected override void Update()
     {
-        TryAttack();
+        TryCutThePlant();
     }
 
-    private void TryAttack()
+    private void TryCutThePlant()
     {
-        if (State == AttackState.Ready)
+        if (_state == CutState.Ready)
         {
-            if (_attack != null)
-                StopCoroutine(_attack);
+            if (_cut != null)
+                StopCoroutine(_cut);
 
-            _attack = StartCoroutine(Attack(_attackDelay));
+            _cut = StartCoroutine(Cut(_cutDelay));
         }
     }
 
-    private IEnumerator Attack(float attackDelay)
+    private IEnumerator Cut(float cutDelay)
     {
-        _playerAnimatorController.Attack();
-        ChangeAttackState(AttackState.WaitingAttackEnd);
-        yield return new WaitForSeconds(attackDelay);
-        ChangeAttackState(AttackState.Ready);
+        PlayerAnimatorController.Cut();
+        ChangeCutState(CutState.WaitingCutEnd);
+        yield return new WaitForSeconds(cutDelay);
+        ChangeCutState(CutState.Ready);
     }
 
-    private void ChangeAttackState(AttackState changedState)
+    private void ChangeCutState(CutState changedState)
     {
-        if (State != changedState)
-        {
-            State = changedState;
-        }
+        if (_state != changedState)
+            _state = changedState;
     }
 }
