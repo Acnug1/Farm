@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TargetsRadar : MonoBehaviour
@@ -6,6 +7,27 @@ public class TargetsRadar : MonoBehaviour
     private readonly List<GameObject> _targetsInRadius = new List<GameObject>();
 
     public IReadOnlyList<GameObject> TargetsInRadius => _targetsInRadius;
+
+    private void Update()
+    {
+        CheckNullElementsInList(_targetsInRadius);
+    }
+
+    private void CheckNullElementsInList(List<GameObject> targetsInRadius)
+    {
+        GameObject[] nullElements = targetsInRadius.Where(targetInRadius => targetInRadius == null).ToArray();
+
+        if (nullElements.Length != 0)
+            RemoveNullElements(targetsInRadius, nullElements);
+    }
+
+    private void RemoveNullElements(List<GameObject> targetsInRadius, GameObject[] nullElements)
+    {
+        foreach (GameObject nullElement in nullElements)
+        {
+            targetsInRadius.Remove(nullElement);
+        }
+    }
 
     public bool IsAvailableTarget(Vector3 target, float angle)
     {

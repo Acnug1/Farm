@@ -29,6 +29,9 @@ public class TargetLostTransition : Transition
     {
         foreach (GameObject target in targets)
         {
+            if (target == null)
+                continue;
+
             if (_targetsRadar.IsAvailableTarget(target.transform.position, _lostTargetAngle))
                 return;
         }

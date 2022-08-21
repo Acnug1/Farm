@@ -29,7 +29,8 @@ public class TargetDetectedTransition : Transition
     {
         foreach (GameObject target in targets)
         {
-            if (_targetsRadar.IsAvailableTarget(target.transform.position, _detectionTargetAngle))
+            if (target != null &&
+                _targetsRadar.IsAvailableTarget(target.transform.position, _detectionTargetAngle))
             { 
                 NeedTransit = true;
                 break;
