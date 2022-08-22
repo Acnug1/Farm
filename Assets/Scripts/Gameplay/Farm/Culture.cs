@@ -31,12 +31,14 @@ public class Culture : MonoBehaviour
         _growthTime = _cultureConfig.GrowthTime;
     }
 
-    public void Destroy(Plant plant)
+    public void OnPlantDestroy()
     {
+        _plant.PlantDestroy -= OnPlantDestroy;
+
         if (_grow != null)
             StopCoroutine(_grow);
 
-        Destroy(plant.gameObject);
+        Destroy(_plant.gameObject);
         IsExists = false;
     }
 
@@ -48,6 +50,7 @@ public class Culture : MonoBehaviour
             new System.InvalidOperationException();
 
         _plant = Instantiate(_plantPrefab, _plantContainer);
+        _plant.PlantDestroy += OnPlantDestroy;
         _grow = StartCoroutine(Grow(_plant, _targetScaleY, _growthTime));
     }
 
@@ -63,7 +66,7 @@ public class Culture : MonoBehaviour
             runningTime += Time.deltaTime;
             normalizedRunningTime = runningTime / growthTime;
 
-            currentScaleY = Mathf.Lerp(0, targetScaleY, normalizedRunningTime);
+            currentScaleY = Mathf.Lerp(0f, targetScaleY, normalizedRunningTime);
             plant.SetScaleY(currentScaleY);
 
             yield return waitForEndOfFrame;

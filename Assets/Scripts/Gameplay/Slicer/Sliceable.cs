@@ -3,21 +3,29 @@ using UnityEngine.Events;
 
 public class Sliceable : MonoBehaviour
 {
-    [SerializeField] private Material _sliceMaterial;
+    private const string SliceableObjectConfigErrorMessage = "SliceableObjectConfig is null";
+
+    [Tooltip("—сылка на ScriptableObject: SliceableObjectConfig")]
+    [SerializeField] private SliceableObjectConfig _sliceableObjectConfig;
     [SerializeField] private UnityEvent<Vector3> _onObjectSliced;
+
+    private Material _sliceMaterial;
+
+    private void Awake()
+    {
+        Debug.Assert(_sliceableObjectConfig != null, SliceableObjectConfigErrorMessage);
+
+        _sliceMaterial = _sliceableObjectConfig.SliceMaterial;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
-
-        if (collision.transform.TryGetComponent(out MeshSlicer meshSlicer))
+        if (collision.gameObject.TryGetComponent(out MeshSlicer meshSlicer))
         {
-            // не находит коллайдер
-            Debug.Log("Contact");
             Vector3 contactPointPosition = collision.GetContact(0).point;
             _onObjectSliced?.Invoke(contactPointPosition);
 
-            meshSlicer.TryToSliceObject(gameObject, _sliceMaterial);
+            meshSlicer.TryToSliceObject(gameObject, _sliceMaterial, _sliceableObjectConfig);
         }
     }
 }

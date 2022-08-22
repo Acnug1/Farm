@@ -3,18 +3,28 @@ using UnityEngine;
 
 public class MeshSlicer : MonoBehaviour
 {
-    public void TryToSliceObject(GameObject objectToSlice, Material sliceMaterial)
+    public void TryToSliceObject(GameObject objectToSlice, Material sliceMaterial, 
+        SliceableObjectConfig sliceableObjectConfig)
     {
         if (objectToSlice && objectToSlice.activeSelf)
         {
             GameObject[] slicedObjects = Slice(objectToSlice,
                 transform.position, transform.up, sliceMaterial);
 
-            SetParentForSlicedObjects(slicedObjects, objectToSlice.transform.parent);
+            if (slicedObjects != null)
+            {
+                Vector3 spawnPosition = objectToSlice.transform.position;
 
-            DestroyObjectToSlice(objectToSlice);
-            AddMeshCollider(slicedObjects);
-            AddRigidbody(slicedObjects);
+                TryDestroyObjectToSlice(objectToSlice);
+
+                foreach (GameObject slicedObject in slicedObjects)
+                {
+                    SetPosition(slicedObject, spawnPosition);
+                    AddMeshCollider(slicedObject);
+                    AddRigidbody(slicedObject);
+                    AddFragmentComponent(slicedObject, sliceableObjectConfig);
+                }
+            }
         }
     }
 
@@ -24,41 +34,31 @@ public class MeshSlicer : MonoBehaviour
         return objectToSlice.SliceInstantiate(planeWorldPosition, planeWorldDirection, sliceMaterial);
     }
 
-    private void SetParentForSlicedObjects(GameObject[] slicedObjects, Transform parent)
+    private void TryDestroyObjectToSlice(GameObject objectToSlice)
     {
-        foreach (GameObject slicedObject in slicedObjects)
-        {
-            slicedObject.transform.parent = parent;
-            slicedObject.transform.position = default;
-            // не ставит в нужную позицию
-        }
+        if (objectToSlice.TryGetComponent(out Plant plant))
+            plant.Destroy();
     }
 
-    private void DestroyObjectToSlice(GameObject objectToSlice)
+    private void SetPosition(GameObject slicedObject, Vector3 position)
     {
-        Transform parent = objectToSlice.transform.parent;
-
-        if (parent != null && parent.TryGetComponent(out Culture culture))
-        {
-            // не удаляет
-            culture.Destroy(objectToSlice.GetComponent<Plant>());
-        }
+        slicedObject.transform.position = new Vector3(position.x, slicedObject.transform.position.y, position.z);
     }
 
-    private void AddMeshCollider(GameObject[] slicedObjects)
+    private void AddMeshCollider(GameObject slicedObject)
     {
-        foreach (GameObject sliceObject in slicedObjects)
-        {
-            MeshCollider collider = sliceObject.AddComponent<MeshCollider>();
-            collider.convex = true;
-        }
+        MeshCollider collider = slicedObject.AddComponent<MeshCollider>();
+        collider.convex = true;
     }
 
-    private void AddRigidbody(GameObject[] slicedObjects)
+    private void AddRigidbody(GameObject slicedObject)
     {
-        foreach (GameObject sliceObject in slicedObjects)
-        {
-            sliceObject.AddComponent<Rigidbody>();
-        }
+        slicedObject.AddComponent<Rigidbody>();
+    }
+
+    private void AddFragmentComponent(GameObject slicedObject, SliceableObjectConfig sliceableObjectConfig)
+    {
+        Fragment fragment = slicedObject.AddComponent<Fragment>();
+        fragment.Init(sliceableObjectConfig);
     }
 }

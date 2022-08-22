@@ -24,9 +24,7 @@ public class TargetsRadar : MonoBehaviour
     private void RemoveNullElements(List<GameObject> targetsInRadius, GameObject[] nullElements)
     {
         foreach (GameObject nullElement in nullElements)
-        {
             targetsInRadius.Remove(nullElement);
-        }
     }
 
     public bool IsAvailableTarget(Vector3 target, float angle)

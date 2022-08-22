@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfad780ba445db499e403653b993b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sliceMaterial: {fileID: 2100000, guid: 9c6ab6dec61bd114a9283fe0602f477e, type: 2}
+  _sliceableObjectConfig: {fileID: 11400000, guid: 17168e9a8e3e3cf4e9cdaab71b739fe1, type: 2}
   _onObjectSliced:
     m_PersistentCalls:
       m_Calls: []
