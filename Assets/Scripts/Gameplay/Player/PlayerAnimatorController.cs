@@ -9,8 +9,6 @@ public class PlayerAnimatorController : MonoBehaviour
     private int _moveSpeedId;
     private int _cutId;
 
-    public float LengthOfCurrentClip => _animator.GetCurrentAnimatorStateInfo(0).length;
-
     private void Awake()
     {
         _animator = GetComponent<Animator>();

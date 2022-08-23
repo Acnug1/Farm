@@ -24,6 +24,7 @@ public class PlayerStateMachine : MonoBehaviour
     private void Start()
     {
         Debug.Assert(_firstState != null, FirstStateErrorMessage);
+
         _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
     }
 

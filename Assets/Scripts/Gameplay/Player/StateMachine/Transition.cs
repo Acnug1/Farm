@@ -16,6 +16,7 @@ public abstract class Transition : MonoBehaviour
     private void Awake()
     {
         Debug.Assert(_targetState != null, TargetStateErrorMessage);
+
         OnTransitionAwake();
     }
 

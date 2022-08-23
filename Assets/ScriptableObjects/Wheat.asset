@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a73ed87dcca6645b88a61d1dab2fb4, type: 3}
   m_Name: Wheat
   m_EditorClassIdentifier: 
+  _timeBetweenSpawn: 5
   _targetScaleY: 1
   _growthTime: 10
+  _plantPrefab: {fileID: 8425080646339928087, guid: a8c7ea251f88a1942ada4742c2f85174, type: 3}

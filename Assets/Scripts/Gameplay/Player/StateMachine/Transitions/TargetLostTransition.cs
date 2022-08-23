@@ -32,7 +32,7 @@ public class TargetLostTransition : Transition
             if (target == null)
                 continue;
 
-            if (_targetsRadar.IsAvailableTarget(target.transform.position, _lostTargetAngle))
+            if (_targetsRadar.IsAvailableTarget(target, _lostTargetAngle))
                 return;
         }
 

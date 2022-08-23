@@ -17,9 +17,7 @@ public class Garden : MonoBehaviour
     private void CheckCulturesState(Culture[] cultures)
     {
         foreach (Culture culture in cultures)
-        {
             if (!culture.IsExists)
-                culture.StartGrowth();
-        }
+                culture.Sow();
     }
 }

@@ -13,6 +13,30 @@ public class TargetsRadar : MonoBehaviour
         CheckNullElementsInList(_targetsInRadius);
     }
 
+    public bool IsAvailableTarget(GameObject target, float angle)
+    {
+        if (TargetIsGrownPlant(target) || TargetIsNotPlant(target))
+        {
+            Vector3 direction = target.transform.position - transform.position;
+            float dot = Vector3.Dot(transform.forward, direction.normalized);
+
+            if (dot < 1)
+            {
+                float angleRadians = Mathf.Acos(dot);
+                float angleDegrees = angleRadians * Mathf.Rad2Deg;
+                return angleDegrees <= angle;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private void CheckNullElementsInList(List<GameObject> targetsInRadius)
     {
         GameObject[] nullElements = targetsInRadius.Where(targetInRadius => targetInRadius == null).ToArray();
@@ -27,22 +51,9 @@ public class TargetsRadar : MonoBehaviour
             targetsInRadius.Remove(nullElement);
     }
 
-    public bool IsAvailableTarget(Vector3 target, float angle)
-    {
-        Vector3 direction = (target - transform.position);
-        float dot = Vector3.Dot(transform.forward, direction.normalized);
+    private bool TargetIsGrownPlant(GameObject target) => target.TryGetComponent(out Plant plant) && plant.HarvestIsReady;
 
-        if (dot < 1)
-        {
-            float angleRadians = Mathf.Acos(dot);
-            float angleDegrees = angleRadians * Mathf.Rad2Deg;
-            return angleDegrees <= angle;
-        }
-        else
-        {
-            return true;
-        }
-    }
+    private bool TargetIsNotPlant(GameObject target) => !target.TryGetComponent(out Plant plant);
 
     private void OnTriggerEnter(Collider other)
     {

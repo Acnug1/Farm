@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
+
 public class Sliceable : MonoBehaviour
 {
     private const string SliceableObjectConfigErrorMessage = "SliceableObjectConfig is null";

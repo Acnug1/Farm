@@ -33,7 +33,10 @@ public class Fragment : MonoBehaviour
 
         for (float remainingTime = timeOfDisappearance; remainingTime > 0; remainingTime -= Time.deltaTime)
         {
+            remainingTime = Mathf.Clamp(remainingTime, 0f, timeOfDisappearance);
+
             gameObject.transform.localScale = fragmentScale * GetNormalizeTime(remainingTime, timeOfDisappearance);
+
             yield return waitForEndOfFrame;
         }
 
