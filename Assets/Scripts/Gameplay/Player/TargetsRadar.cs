@@ -39,13 +39,19 @@ public class TargetsRadar : MonoBehaviour
 
     private void CheckNullElementsInList(List<GameObject> targetsInRadius)
     {
-        GameObject[] nullElements = targetsInRadius.Where(targetInRadius => targetInRadius == null).ToArray();
+        List<GameObject> nullElements = new List<GameObject>();
 
-        if (nullElements.Length != 0)
+        foreach (GameObject targetInRadius in targetsInRadius)
+        {
+            if (!targetInRadius)
+                nullElements.Add(targetInRadius);
+        }
+
+        if (nullElements.Count != 0)
             RemoveNullElements(targetsInRadius, nullElements);
     }
 
-    private void RemoveNullElements(List<GameObject> targetsInRadius, GameObject[] nullElements)
+    private void RemoveNullElements(List<GameObject> targetsInRadius, List<GameObject> nullElements)
     {
         foreach (GameObject nullElement in nullElements)
             targetsInRadius.Remove(nullElement);

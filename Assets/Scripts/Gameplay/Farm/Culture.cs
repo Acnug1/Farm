@@ -16,6 +16,7 @@ public class Culture : MonoBehaviour
     private float _targetScaleY;
     private float _growthTime;
     private Plant _plantPrefab;
+    private Color _targetColor;
     private Plant _plant;
     private Coroutine _grow;
 
@@ -30,6 +31,7 @@ public class Culture : MonoBehaviour
         _targetScaleY = _cultureConfig.TargetScaleY;
         _growthTime = _cultureConfig.GrowthTime;
         _plantPrefab = _cultureConfig.PlantPrefab;
+        _targetColor = _cultureConfig.TargetColor;
 
         Debug.Assert(_plantPrefab != null, PlantPrefabErrorMessage);
     }
@@ -59,23 +61,26 @@ public class Culture : MonoBehaviour
     {
         _plant = Instantiate(_plantPrefab, _plantContainer);
         _plant.PlantDestroy += OnPlantDestroy;
-        _grow = StartCoroutine(Grow(_plant, _targetScaleY, _growthTime));
+        _grow = StartCoroutine(Grow(_plant, _growthTime));
     }
 
-    private IEnumerator Grow(Plant plant, float targetScaleY, float growthTime)
+    private IEnumerator Grow(Plant plant, float growthTime)
     {
         var waitForEndOfFrame = new WaitForEndOfFrame();
-        float currentScaleY = 0f;
+        float currentScaleY;
+        Color currentColor;
         float runningTime = 0f;
         float normalizedRunningTime;
 
-        while (currentScaleY < targetScaleY)
+        while (runningTime < growthTime)
         {
             runningTime += Time.deltaTime;
             normalizedRunningTime = runningTime / growthTime;
 
-            currentScaleY = Mathf.Lerp(0f, targetScaleY, normalizedRunningTime);
+            currentScaleY = Mathf.Lerp(0f, _targetScaleY, normalizedRunningTime);
             plant.SetScaleY(currentScaleY);
+            currentColor = Color.Lerp(plant.StartColor, _targetColor, normalizedRunningTime);
+            plant.SetColor(currentColor);
 
             yield return waitForEndOfFrame;
         }
