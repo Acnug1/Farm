@@ -1,135 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5938279954565897554
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3423729105758003650}
-  - component: {fileID: 2209960125187473808}
-  m_Layer: 0
-  m_Name: Feedbacks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3423729105758003650
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5938279954565897554}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7746877599649156992}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2209960125187473808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5938279954565897554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Feedbacks: []
-  InitializationMode: 2
-  SafeMode: 3
-  Direction: 0
-  AutoChangeDirectionOnEnd: 0
-  AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
-  ForceTimescaleMode: 0
-  ForcedTimescaleMode: 1
-  DurationMultiplier: 1
-  DisplayFullDurationDetails: 0
-  PlayerTimescaleMode: 0
-  CooldownDuration: 0
-  InitialDelay: 0
-  CanPlay: 1
-  CanPlayWhileAlreadyPlaying: 1
-  ChanceToPlay: 100
-  FeedbacksIntensity: 1
-  Events:
-    TriggerMMFeedbacksEvents: 0
-    TriggerUnityEvents: 1
-    OnPlay:
-      m_PersistentCalls:
-        m_Calls: []
-    OnPause:
-      m_PersistentCalls:
-        m_Calls: []
-    OnResume:
-      m_PersistentCalls:
-        m_Calls: []
-    OnRevert:
-      m_PersistentCalls:
-        m_Calls: []
-    OnComplete:
-      m_PersistentCalls:
-        m_Calls: []
-  DebugActive: 0
-  FeedbacksList:
-  - id: 0
-  KeepPlayModeChanges: 0
-  PerformanceMode: 0
-  ForceStopFeedbacksOnDisable: 1
-  references:
-    version: 1
-    00000000:
-      type: {class: MMF_ParticlesInstantiation, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
-      data:
-        Active: 0
-        UniqueID: -1708465699
-        Label: Particles Instantiation
-        Channel: 0
-        Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
-        Timing:
-          TimescaleMode: 0
-          ExcludeFromHoldingPauses: 0
-          ContributeToTotalDuration: 1
-          InitialDelay: 0
-          CooldownDuration: 0
-          InterruptsOnStop: 1
-          NumberOfRepeats: 0
-          RepeatForever: 0
-          DelayBetweenRepeats: 1
-          MMFeedbacksDirectionCondition: 0
-          PlayDirection: 0
-          ConstantIntensity: 0
-          UseIntensityInterval: 0
-          IntensityIntervalMin: 0
-          IntensityIntervalMax: 0
-          Sequence: {fileID: 0}
-          TrackID: 0
-          Quantized: 0
-          TargetBPM: 120
-        Owner: {fileID: 2209960125187473808}
-        DebugActive: 0
-        Mode: 1
-        CachedRecycle: 1
-        ParticlesPrefab: {fileID: 198224152589183610, guid: 73dd52c851c98bc469685251a9046eb5, type: 3}
-        RandomParticlePrefabs: []
-        ForceSetActiveOnPlay: 0
-        PositionMode: 0
-        InstantiateParticlesPosition: {fileID: 0}
-        TargetWorldPosition: {x: 0, y: 0, z: 0}
-        Offset: {x: 0, y: 0, z: 0}
-        NestParticles: 0
-        ApplyRotation: 0
-        ApplyScale: 0
 --- !u!1 &6787418393006676521
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +14,9 @@ GameObject:
   - component: {fileID: 8141159639477386989}
   - component: {fileID: 5511396007879996448}
   - component: {fileID: 8425080646339928087}
+  - component: {fileID: 4814730586555456061}
   - component: {fileID: 5382823574692606787}
+  - component: {fileID: 4725606774298218561}
   - component: {fileID: 4034413920721271928}
   m_Layer: 0
   m_Name: Wheat_Plant
@@ -163,8 +35,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3423729105758003650}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -259,6 +130,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92861801f514a34db9b3dc8a0179e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _plantConfig: {fileID: 11400000, guid: c41c2fb63ef2eca48ae08602c8b07748, type: 2}
+--- !u!114 &4814730586555456061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787418393006676521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e173d35406cab439fe6c3a6079d9ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5382823574692606787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,39 +155,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb17b9ef2cbabf4c95477c96039405d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _plantScaleCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1.9956744
-      outSlope: 1.9956744
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5003563
-      value: 0.99854827
-      inSlope: -0.0014231801
-      outSlope: -0.0014231801
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -1.9985207
-      outSlope: -1.9985207
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+--- !u!114 &4725606774298218561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787418393006676521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d673a6fb312134ea0b9293a55fa8c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4034413920721271928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +183,7 @@ MonoBehaviour:
   _onObjectSliced:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2209960125187473808}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Feedbacks
         m_MethodName: PlayFeedbacks
         m_Mode: 1

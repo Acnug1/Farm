@@ -15,12 +15,9 @@ public class CultureConfig : ScriptableObject
     [SerializeField] private float _growthTime = 10f;
     [Tooltip("—сылка на префаб растени€, которое должно расти")]
     [SerializeField] private Plant _plantPrefab;
-    [Tooltip("÷елевой цвет, который должно достичь растение при полном росте")]
-    [SerializeField] private Color _targetColor = Color.yellow;
 
     public float TimeBetweenSpawn => _timeBetweenSpawn;
     public float TargetScaleY => _targetScaleY;
     public float GrowthTime => _growthTime;
     public Plant PlantPrefab => _plantPrefab;
-    public Color TargetColor => _targetColor;
 }

@@ -2,25 +2,27 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Renderer))]
 
 public class Plant : MonoBehaviour
 {
-    public event UnityAction HarvestReady;
+    private const string PlantConfigErrorMessage = "PlantConfig is null";
+
+    [Tooltip("—сылка на ScriptableObject: PlantConfig")]
+    [SerializeField] private PlantConfig _plantConfig;
 
     private Collider _collider;
-    private Renderer _renderer;
 
+    public event UnityAction HarvestReady;
     public event UnityAction PlantDestroy;
 
+    public PlantConfig PlantConfig => _plantConfig;
     public bool HarvestIsReady { get; private set; } = false;
-    public Color StartColor { get; private set; }
 
     private void Awake()
     {
+        Debug.Assert(_plantConfig != null, PlantConfigErrorMessage);
+
         _collider = GetComponent<Collider>();
-        _renderer = GetComponent<Renderer>();
-        StartColor = _renderer.material.color;
 
         DisableCollision(_collider);
     }
@@ -33,11 +35,6 @@ public class Plant : MonoBehaviour
     public void SetScaleY(float currentScaleY)
     {
         transform.localScale = new Vector3(transform.localScale.x, currentScaleY, transform.localScale.z);
-    }
-
-    public void SetColor(Color color)
-    {
-        _renderer.material.color = color;
     }
 
     public void FinishGrowth()

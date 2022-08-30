@@ -16,8 +16,8 @@ public class Culture : MonoBehaviour
     private float _targetScaleY;
     private float _growthTime;
     private Plant _plantPrefab;
-    private Color _targetColor;
     private Plant _plant;
+    private PlantRenderer _plantRenderer;
     private Coroutine _grow;
 
     public bool IsExists { get; private set; } = false;
@@ -31,7 +31,6 @@ public class Culture : MonoBehaviour
         _targetScaleY = _cultureConfig.TargetScaleY;
         _growthTime = _cultureConfig.GrowthTime;
         _plantPrefab = _cultureConfig.PlantPrefab;
-        _targetColor = _cultureConfig.TargetColor;
 
         Debug.Assert(_plantPrefab != null, PlantPrefabErrorMessage);
     }
@@ -61,10 +60,16 @@ public class Culture : MonoBehaviour
     {
         _plant = Instantiate(_plantPrefab, _plantContainer);
         _plant.PlantDestroy += OnPlantDestroy;
-        _grow = StartCoroutine(Grow(_plant, _growthTime));
+
+        _plantRenderer = TryTakePlantRenderer(_plant);
+
+        _grow = StartCoroutine(Grow(_plant, _growthTime, _plantRenderer));
     }
 
-    private IEnumerator Grow(Plant plant, float growthTime)
+    private PlantRenderer TryTakePlantRenderer(Plant plant) =>
+        plant.TryGetComponent(out PlantRenderer plantRenderer) ? plantRenderer : null;
+
+    private IEnumerator Grow(Plant plant, float growthTime, PlantRenderer plantRenderer)
     {
         var waitForEndOfFrame = new WaitForEndOfFrame();
         float currentScaleY;
@@ -79,8 +84,12 @@ public class Culture : MonoBehaviour
 
             currentScaleY = Mathf.Lerp(0f, _targetScaleY, normalizedRunningTime);
             plant.SetScaleY(currentScaleY);
-            currentColor = Color.Lerp(plant.StartColor, _targetColor, normalizedRunningTime);
-            plant.SetColor(currentColor);
+
+            if (plantRenderer)
+            {
+                currentColor = Color.Lerp(plantRenderer.StartColor, plantRenderer.TargetColor, normalizedRunningTime);
+                plantRenderer.SetColor(currentColor);
+            }
 
             yield return waitForEndOfFrame;
         }

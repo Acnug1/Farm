@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -10,7 +9,6 @@ public class Sliceable : MonoBehaviour
 
     [Tooltip("—сылка на ScriptableObject: SliceableObjectConfig")]
     [SerializeField] private SliceableObjectConfig _sliceableObjectConfig;
-    [SerializeField] private UnityEvent<Vector3> _onObjectSliced;
 
     private Material _sliceMaterial;
 
@@ -24,11 +22,6 @@ public class Sliceable : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out MeshSlicer meshSlicer))
-        {
-            Vector3 contactPointPosition = collision.GetContact(0).point;
-            _onObjectSliced?.Invoke(contactPointPosition);
-
             meshSlicer.TryToSliceObject(gameObject, _sliceMaterial, _sliceableObjectConfig);
-        }
     }
 }
