@@ -1,12 +1,12 @@
 {
-    "name": "Gameplay",
+    "name": "NavMeshComponentsEditor",
     "rootNamespace": "",
     "references": [
-        "GUID:b42d3f2b4b2024b0fb4b93601f0faf4c",
-        "GUID:011daef7cfe68d54d86b3ef9e74fab7b",
         "GUID:8c4dd21966739024fbd72155091d199e"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

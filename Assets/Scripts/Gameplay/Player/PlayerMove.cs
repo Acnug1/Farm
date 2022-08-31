@@ -3,6 +3,7 @@ using UnityEngine;
 [DefaultExecutionOrder(200)]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SurfaceSlider))]
+[RequireComponent(typeof(NavAgent))]
 
 public class PlayerMove : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerMove : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private SurfaceSlider _surfaceSlider;
+    private NavAgent _navAgent;
     private PlayerAnimatorController _playerAnimatorController;
     private Vector3 _direction;
     private float _speed;
@@ -28,6 +30,7 @@ public class PlayerMove : MonoBehaviour
 
         _rigidbody = GetComponent<Rigidbody>();
         _surfaceSlider = GetComponent<SurfaceSlider>();
+        _navAgent = GetComponent<NavAgent>();
         _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
 
         _speed = _playerMoveConfig.Speed;
@@ -42,7 +45,7 @@ public class PlayerMove : MonoBehaviour
 
         if (_direction != Vector3.zero)
         {
-            Move(directionAlongSurface);
+            Move(directionAlongSurface, _speed);
             Rotate(directionAlongSurface);
         }
         else
@@ -54,13 +57,10 @@ public class PlayerMove : MonoBehaviour
         return Vector3.forward * direction.y + Vector3.right * direction.x;
     }
 
-    private void Move(Vector3 direction)
+    private void Move(Vector3 direction, float speed)
     {
-        Vector3 offset = direction * _speed * Time.fixedDeltaTime;
-
-        _rigidbody.MovePosition(_rigidbody.position + offset);
-
-        _playerAnimatorController.SpeedChanged(_speed);
+        _navAgent.Move(direction, speed);
+        _playerAnimatorController.SpeedChanged(speed);
     }
 
     private void Rotate(Vector3 direction)
@@ -70,6 +70,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Stop()
     {
+        _navAgent.Stop();
         _playerAnimatorController.SpeedChanged(0);
     }
 }
