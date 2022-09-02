@@ -43,6 +43,10 @@ public class Culture : MonoBehaviour
             StopCoroutine(_grow);
 
         Destroy(_plant.gameObject);
+    }
+
+    public void Reap()
+    { 
         IsExists = false;
     }
 

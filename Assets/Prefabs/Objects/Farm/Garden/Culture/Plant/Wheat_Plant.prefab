@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4814730586555456061}
   - component: {fileID: 5382823574692606787}
   - component: {fileID: 4725606774298218561}
+  - component: {fileID: 6903870051985444316}
   - component: {fileID: 4034413920721271928}
   m_Layer: 0
   m_Name: Wheat_Plant
@@ -167,6 +168,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d673a6fb312134ea0b9293a55fa8c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6903870051985444316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787418393006676521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458a0367d38a3a44fba271e4032ddb48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4034413920721271928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,18 +193,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sliceableObjectConfig: {fileID: 11400000, guid: 17168e9a8e3e3cf4e9cdaab71b739fe1, type: 2}
-  _onObjectSliced:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Feedbacks
-        m_MethodName: PlayFeedbacks
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 328953240381902774}
   - component: {fileID: 5742319751626192498}
   - component: {fileID: 2420365381160998815}
+  - component: {fileID: 3564324358561160692}
   - component: {fileID: 2420365381160998814}
   - component: {fileID: 2420365381160998818}
   - component: {fileID: 2508338952088194591}
@@ -120,6 +121,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1910788a78e9abb42be696ee02ef08e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerConfig: {fileID: 11400000, guid: 631a2d3a01a91424e8cb62721dc12dc8, type: 2}
+--- !u!114 &3564324358561160692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420365382381298141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c98876978d88b438882116774c2534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cropContainer: {fileID: 7756323468529697652}
 --- !u!114 &2420365381160998814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,5 +348,10 @@ PrefabInstance:
 --- !u!4 &2746179827270469477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5602366994982487898, guid: a69c326e8fceb384db07f75bb90dca88, type: 3}
+  m_PrefabInstance: {fileID: 7756323468928417855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7756323468529697652 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 943457099, guid: a69c326e8fceb384db07f75bb90dca88, type: 3}
   m_PrefabInstance: {fileID: 7756323468928417855}
   m_PrefabAsset: {fileID: 0}

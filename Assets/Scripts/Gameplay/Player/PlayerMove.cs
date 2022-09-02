@@ -41,7 +41,7 @@ public class PlayerMove : MonoBehaviour
     {
         _direction = GetDirection(_playerInput.Direction);
 
-        Vector3 directionAlongSurface = _surfaceSlider.GetDirectionAlongSurface(_direction, _layerMask);
+        Vector3 directionAlongSurface = _surfaceSlider.GetDirectionAlongSurface(_direction.normalized, _layerMask);
 
         if (_direction != Vector3.zero)
         {

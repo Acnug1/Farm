@@ -50,3 +50,5 @@ MonoBehaviour:
   _targetColor: {r: 0.36862746, g: 0.7647059, b: 0.3137255, a: 1}
   _cutEffect: {fileID: 198224152589183610, guid: 73dd52c851c98bc469685251a9046eb5, type: 3}
   _offsetOfSpawnEffect: {x: 0, y: 1, z: 0}
+  _cropPrefab: {fileID: 8363955247156332306, guid: c3117f67db092bc4eb0e4a72d3d79fb4, type: 3}
+  _offsetOfSpawnCropPrefab: {x: 0, y: 1, z: 0}

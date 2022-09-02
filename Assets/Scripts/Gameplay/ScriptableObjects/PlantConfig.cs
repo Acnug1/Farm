@@ -16,6 +16,10 @@ public class PlantConfig : ScriptableObject
     [SerializeField] private ParticleSystem _cutEffect;
     [Tooltip("Смещение спавна эффекта, относительно пивота растения в глобальной системе координат")]
     [SerializeField] private Vector3 _offsetOfSpawnEffect = new Vector3(0, 1, 0);
+    [Tooltip("Префаб урожая, который остается после срезания растения")]
+    [SerializeField] private Crop _cropPrefab;
+    [Tooltip("Смещение спавна префаба урожая, относительно пивота растения в глобальной системе координат")]
+    [SerializeField] private Vector3 _offsetOfSpawnCropPrefab = new Vector3(0, 1, 0);
 
     public AnimationCurve PlantScaleYCurve => _plantScaleYCurve;
     public bool IsLoopAnimation => _isLoopAnimation;
@@ -23,4 +27,6 @@ public class PlantConfig : ScriptableObject
     public Color TargetColor => _targetColor;
     public ParticleSystem CutEffect => _cutEffect;
     public Vector3 OffsetOfSpawnEffect => _offsetOfSpawnEffect;
+    public Crop CropPrefab => _cropPrefab;
+    public Vector3 OffsetOfSpawnCropPrefab => _offsetOfSpawnCropPrefab;
 }
