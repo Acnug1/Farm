@@ -1,23 +1,24 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Mill))]
+
 public class BladesAnimated : MonoBehaviour
 {
-    private const string MillConfigErrorMessage = "MillConfig is null";
     private const string BladesErrorMessage = "Blades is null";
 
-    [Tooltip("—сылка на ScriptableObject: MillConfig")]
-    [SerializeField] private MillConfig _millConfig;
     [Tooltip("—сылка на Transform лопастей мельницы")]
     [SerializeField] private Transform _blades;
 
+    private Mill _mill;
     private float _speedRotationBlades;
 
     private void Awake()
     {
-        Debug.Assert(_millConfig != null, MillConfigErrorMessage);
         Debug.Assert(_blades != null, BladesErrorMessage);
 
-        _speedRotationBlades = _millConfig.SpeedRotationBlades;
+        _mill = GetComponent<Mill>();
+
+        _speedRotationBlades = _mill.MillConfig.SpeedRotationBlades;
     }
 
     private void Update()

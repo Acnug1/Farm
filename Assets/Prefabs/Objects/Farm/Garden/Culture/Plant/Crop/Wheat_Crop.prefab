@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 4132979750322880548}
   - component: {fileID: 4132979750322880555}
   - component: {fileID: 8363955247156332306}
+  - component: {fileID: 1107017344423912282}
   m_Layer: 0
   m_Name: Wheat_Crop
   m_TagString: Untagged
@@ -157,3 +158,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cropConfig: {fileID: 11400000, guid: 4962e686be8cb704bb04dea706106691, type: 2}
+--- !u!114 &1107017344423912282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4132979750322880553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c459ac58b7641d4439eb3322f4984937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

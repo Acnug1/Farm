@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
@@ -14,11 +15,12 @@ public class Crop : MonoBehaviour
     private Rigidbody _rigidbody;
     private Collider _collider;
     private Culture _culture;
-    private float _moveSpeedToContainer;
-    private float _rotateSpeedToContainer;
-    private float _offsetYInContainer;
-    private Coroutine _moveToContainer;
-    private Coroutine _rotateToContainer;
+    private Coroutine _waitingBeforeSale;
+
+    public event UnityAction<Transform, int> AttachToContainer;
+    public event UnityAction<Transform> Selling;
+
+    public CropConfig CropConfig => _cropConfig;
 
     private void Awake()
     {
@@ -29,15 +31,16 @@ public class Crop : MonoBehaviour
 
         DisableKinematic(_rigidbody);
         EnableCollision(_collider);
-
-        _moveSpeedToContainer = _cropConfig.MoveSpeedToContainer;
-        _rotateSpeedToContainer = _cropConfig.RotateSpeedToContainer;
-        _offsetYInContainer = _cropConfig.OffsetYInContainer;
     }
 
     public void Init(Culture culture)
     {
         _culture = culture;
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 
     public void Reap(Transform cropContainer, int cropCount)
@@ -50,49 +53,27 @@ public class Crop : MonoBehaviour
             DisableCollision(_collider);
             SetParent(cropContainer);
 
-            if (_moveToContainer != null || _rotateToContainer != null)
-                return;
-
-            _moveToContainer = StartCoroutine(MoveToContainer(cropContainer, cropCount));
-            _rotateToContainer = StartCoroutine(RotateToContainer(cropContainer));
+            AttachToContainer?.Invoke(cropContainer, cropCount);
         }
     }
 
-    private IEnumerator MoveToContainer(Transform cropContainer, int cropCount)
+    public void Sell(Transform containerForSale, float waitingTime)
     {
-        var waitForEndOfFrame = new WaitForEndOfFrame();
-        Vector3 positionInContainer;
-        float cropOffsetY = GetCropOffsetY(cropCount);
+        if (_waitingBeforeSale != null)
+            return;
 
-        do
-        {
-            yield return waitForEndOfFrame;
-
-            positionInContainer = new Vector3(cropContainer.position.x,
-                cropContainer.position.y + cropOffsetY, cropContainer.position.z);
-
-            transform.position = Vector3.MoveTowards(transform.position, positionInContainer,
-                _moveSpeedToContainer * Time.deltaTime);
-        }
-        while (Vector3.Distance(transform.position, positionInContainer) != 0);
-
-        ResetLocalPosition(cropCount);
+        _waitingBeforeSale = StartCoroutine(WaitingBeforeSale(containerForSale, waitingTime));
     }
 
-    private IEnumerator RotateToContainer(Transform cropContainer)
+    private IEnumerator WaitingBeforeSale(Transform containerForSale, float sellCropDelay)
     {
-        var waitForEndOfFrame = new WaitForEndOfFrame();
+        var waitForSeconds = new WaitForSeconds(sellCropDelay);
 
-        do
-        {
-            yield return waitForEndOfFrame;
+        yield return waitForSeconds;
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, cropContainer.rotation,
-                _rotateSpeedToContainer * Time.deltaTime);
-        }
-        while (Quaternion.Angle(transform.rotation, cropContainer.rotation) != 0);
+        ClearParent();
 
-        ResetLocalRotation();
+        Selling?.Invoke(containerForSale);
     }
 
     private void SetParent(Transform cropContainer)
@@ -100,21 +81,9 @@ public class Crop : MonoBehaviour
         transform.parent = cropContainer;
     }
 
-    private float GetCropOffsetY(int cropCount)
+    private void ClearParent()
     {
-        return (cropCount - 1) * _offsetYInContainer;
-    }
-
-    private void ResetLocalPosition(int cropCount)
-    {
-        Vector3 localPosition = Vector3.zero;
-        localPosition.y = GetCropOffsetY(cropCount);
-        transform.localPosition = localPosition;
-    }
-
-    private void ResetLocalRotation()
-    {
-        transform.localRotation = Quaternion.identity;
+        transform.parent = null;
     }
 
     private void EnableKinematic(Rigidbody rigidbody)
