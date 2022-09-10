@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Plant))]
 
 public class PlantHarvest : MonoBehaviour
 {
+    private const string CropPrefabErrorMessage = "CropPrefab is null";
     private Plant _plant;
     private Crop _cropPrefab;
     private Vector3 _offsetOfSpawnCropPrefab;
@@ -16,31 +18,32 @@ public class PlantHarvest : MonoBehaviour
         _cropPrefab = _plant.PlantConfig.CropPrefab;
         _offsetOfSpawnCropPrefab = _plant.PlantConfig.OffsetOfSpawnCropPrefab;
         _culture = GetComponentInParent<Culture>();
+
+        Debug.Assert(_cropPrefab != null, CropPrefabErrorMessage);
     }
 
     private void OnEnable()
     {
-        _plant.PlantDestroy += OnPlantDestroy;
+        _plant.PlantDisable += OnPlantDisable;
     }
 
     private void OnDisable()
     {
-        _plant.PlantDestroy -= OnPlantDestroy;
+        _plant.PlantDisable -= OnPlantDisable;
     }
 
-    private void OnPlantDestroy()
+    private void OnPlantDisable()
     {
-        if (_culture != null)
-            CreateCrop(_cropPrefab, _offsetOfSpawnCropPrefab, _culture);
+        if (!_culture)
+            throw new InvalidOperationException();
+
+        CreateCrop(_cropPrefab, _offsetOfSpawnCropPrefab, _culture);
     }
 
     private void CreateCrop(Crop cropPrefab, Vector3 offsetOfSpawnCropPrefab, Culture culture)
     {
-        if (cropPrefab)
-        {
-            Crop crop = Instantiate(cropPrefab, transform.position + offsetOfSpawnCropPrefab, Quaternion.identity);
+        Crop crop = Instantiate(cropPrefab, transform.position + offsetOfSpawnCropPrefab, Quaternion.identity);
 
-            crop.Init(culture);
-        }
+        crop.Init(culture);
     }
 }

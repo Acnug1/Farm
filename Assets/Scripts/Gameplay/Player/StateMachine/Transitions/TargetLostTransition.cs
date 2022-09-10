@@ -29,7 +29,7 @@ public class TargetLostTransition : Transition
     {
         foreach (GameObject target in targets)
         {
-            if (target == null)
+            if (!target || !target.activeSelf)
                 continue;
 
             if (_targetsRadar.IsAvailableTarget(target, _lostTargetAngle))

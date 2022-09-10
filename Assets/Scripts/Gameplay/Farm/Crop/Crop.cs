@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -45,16 +46,16 @@ public class Crop : MonoBehaviour
 
     public void Reap(Transform cropContainer, int cropCount)
     {
-        if (_culture != null)
-        {
-            _culture.Reap();
+        if (!_culture)
+            throw new InvalidOperationException();
 
-            EnableKinematic(_rigidbody);
-            DisableCollision(_collider);
-            SetParent(cropContainer);
+        _culture.Reap();
 
-            AttachToContainer?.Invoke(cropContainer, cropCount);
-        }
+        EnableKinematic(_rigidbody);
+        DisableCollision(_collider);
+        SetParent(cropContainer);
+
+        AttachToContainer?.Invoke(cropContainer, cropCount);
     }
 
     public void Sell(Transform containerForSale, float waitingTime)

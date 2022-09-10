@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlantAnimated : MonoBehaviour
 {
+    private bool _isEnabledAnimation;
     private Plant _plant;
     private AnimationCurve _plantScaleYCurve;
     private bool _isLoop;
@@ -19,13 +20,22 @@ public class PlantAnimated : MonoBehaviour
         _isLoop = _plant.PlantConfig.IsLoopAnimation;
 
         _totalTime = _plantScaleYCurve.keys[_plantScaleYCurve.keys.Length - 1].time;
+    }
+
+    private void OnEnable()
+    {
         _plant.HarvestReady += OnHarvestReady;
+        _currentTime = 0;
         DisableAnimation();
+    }
+
+    private void OnDisable()
+    {
+        _plant.HarvestReady -= OnHarvestReady;
     }
 
     private void OnHarvestReady()
     {
-        _plant.HarvestReady -= OnHarvestReady;
         SetDefaultScaleY();
         EnableAnimation();
     }
@@ -37,19 +47,20 @@ public class PlantAnimated : MonoBehaviour
 
     private void EnableAnimation()
     {
-        if (!enabled)
-            enabled = true;
+        if (!_isEnabledAnimation)
+            _isEnabledAnimation = true;
     }
 
     private void DisableAnimation()
     {
-        if (enabled)
-            enabled = false;
+        if (_isEnabledAnimation)
+            _isEnabledAnimation = false;
     }
 
     private void Update()
     {
-        AnimateScaleY(_plantScaleYCurve, _isLoop);
+        if (_isEnabledAnimation)
+            AnimateScaleY(_plantScaleYCurve, _isLoop);
     }
 
     private void AnimateScaleY(AnimationCurve plantScaleYCurve, bool isLoop)

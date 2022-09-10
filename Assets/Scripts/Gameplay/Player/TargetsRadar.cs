@@ -1,16 +1,16 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class TargetsRadar : MonoBehaviour
 {
     private readonly List<GameObject> _targetsInRadius = new List<GameObject>();
+    private readonly List<GameObject> _emptyTargets = new List<GameObject>();
 
     public IReadOnlyList<GameObject> TargetsInRadius => _targetsInRadius;
 
     private void Update()
     {
-        CheckNullElementsInList(_targetsInRadius);
+        TryFindEmptyTargets(_targetsInRadius, _emptyTargets);
     }
 
     public bool IsAvailableTarget(GameObject target, float angle)
@@ -37,24 +37,24 @@ public class TargetsRadar : MonoBehaviour
         }
     }
 
-    private void CheckNullElementsInList(List<GameObject> targetsInRadius)
+    private void TryFindEmptyTargets(List<GameObject> targetsInRadius, List<GameObject> emptyTargets)
     {
-        List<GameObject> nullElements = new List<GameObject>();
-
         foreach (GameObject targetInRadius in targetsInRadius)
         {
-            if (!targetInRadius)
-                nullElements.Add(targetInRadius);
+            if (!targetInRadius || !targetInRadius.activeSelf)
+                emptyTargets.Add(targetInRadius);
         }
 
-        if (nullElements.Count != 0)
-            RemoveNullElements(targetsInRadius, nullElements);
+        if (emptyTargets.Count != 0)
+            RemoveEmptyTargets(targetsInRadius, emptyTargets);
     }
 
-    private void RemoveNullElements(List<GameObject> targetsInRadius, List<GameObject> nullElements)
+    private void RemoveEmptyTargets(List<GameObject> targetsInRadius, List<GameObject> emptyTargets)
     {
-        foreach (GameObject nullElement in nullElements)
-            targetsInRadius.Remove(nullElement);
+        foreach (GameObject emptyTarget in emptyTargets)
+            targetsInRadius.Remove(emptyTarget);
+
+        emptyTargets.Clear();
     }
 
     private bool TargetIsGrownPlant(GameObject target) => target.TryGetComponent(out Plant plant) && plant.HarvestIsReady;

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   _maxCropCount: 40
+  _sellCropDelay: 0.05

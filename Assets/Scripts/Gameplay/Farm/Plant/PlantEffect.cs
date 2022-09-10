@@ -2,8 +2,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Plant))]
 
-public class PlantEffect : MonoBehaviour
+public class PlantEffect : ObjectPool
 {
+    private const string CutEffectErrorMessage = "CutEffect is null";
     private Plant _plant;
     private ParticleSystem _cutEffect;
     private Vector3 _offsetOfSpawnEffect;
@@ -14,26 +15,33 @@ public class PlantEffect : MonoBehaviour
 
         _cutEffect = _plant.PlantConfig.CutEffect;
         _offsetOfSpawnEffect = _plant.PlantConfig.OffsetOfSpawnEffect;
+
+        Debug.Assert(_cutEffect != null, CutEffectErrorMessage);
+
+        InitializePool(_cutEffect.gameObject, transform.parent);
     }
 
     private void OnEnable()
     {
-        _plant.PlantDestroy += OnPlantDestroy;
+        _plant.PlantDisable += OnPlantDisable;
     }
 
     private void OnDisable()
     {
-        _plant.PlantDestroy -= OnPlantDestroy;
+        _plant.PlantDisable -= OnPlantDisable;
     }
 
-    private void OnPlantDestroy()
+    private void OnPlantDisable()
     {
-        PlayCutEffect(_cutEffect, _offsetOfSpawnEffect);
+        PlayCutEffect(_offsetOfSpawnEffect);
     }
 
-    private void PlayCutEffect(ParticleSystem cutEffect, Vector3 offsetOfSpawnEffect)
+    private void PlayCutEffect(Vector3 offsetOfSpawnEffect)
     {
-        if (cutEffect)
-            Instantiate(cutEffect, transform.position + offsetOfSpawnEffect, Quaternion.identity);
+        if (TryGetObjectFromPool(out GameObject cutEffectObject))
+        {
+            cutEffectObject.transform.position = transform.position + offsetOfSpawnEffect;
+            cutEffectObject.SetActive(true);
+        }
     }
 }

@@ -1,39 +1,27 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private Transform _container;
-    [SerializeField] private int _capacity;
-
     private readonly List<GameObject> _pool = new List<GameObject>();
 
-    protected void Initialize(GameObject prefab)
+    protected void InitializePool(GameObject prefab, Transform container = null, int capacity = 1)
     {
-        for (int i = 0; i < _capacity; i++)
+        if (!prefab || capacity < 1)
+            throw new InvalidOperationException();
+
+        for (int i = 0; i < capacity; i++)
         {
-            GameObject spawned = Instantiate(prefab, _container);
+            GameObject spawned = Instantiate(prefab, container);
             spawned.SetActive(false);
 
             _pool.Add(spawned);
         }
     }
 
-    protected void Initialize(GameObject[] prefabs)
-    {
-        for (int i = 0; i < _capacity; i++)
-        {
-            int randomIndex = Random.Range(0, prefabs.Length);
-
-            GameObject spawned = Instantiate(prefabs[randomIndex], _container);
-            spawned.SetActive(false);
-
-            _pool.Add(spawned);
-        }
-    }
-
-    protected bool TryGetObject(out GameObject result)
+    protected bool TryGetObjectFromPool(out GameObject result)
     {
         result = _pool.FirstOrDefault(p => p.activeSelf == false);
 

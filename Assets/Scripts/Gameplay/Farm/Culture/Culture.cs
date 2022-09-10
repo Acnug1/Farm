@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Culture : MonoBehaviour
+public class Culture : ObjectPool
 {
     private const string PlantContainerErrorMessage = "PlantContainer is null";
     private const string CultureConfigErrorMessage = "CultureConfig is null";
@@ -33,16 +33,18 @@ public class Culture : MonoBehaviour
         _plantPrefab = _cultureConfig.PlantPrefab;
 
         Debug.Assert(_plantPrefab != null, PlantPrefabErrorMessage);
+
+        InitializePool(_plantPrefab.gameObject, _plantContainer);
     }
 
-    public void OnPlantDestroy()
+    public void OnPlantDisable()
     {
-        _plant.PlantDestroy -= OnPlantDestroy;
-
+        _plant.PlantDisable -= OnPlantDisable;
+ 
         if (_grow != null)
             StopCoroutine(_grow);
 
-        Destroy(_plant.gameObject);
+        _plant.gameObject.SetActive(false);
     }
 
     public void Reap()
@@ -62,12 +64,16 @@ public class Culture : MonoBehaviour
 
     private void StartGrowth()
     {
-        _plant = Instantiate(_plantPrefab, _plantContainer);
-        _plant.PlantDestroy += OnPlantDestroy;
+        if (TryGetObjectFromPool(out GameObject plantObject))
+        {
+            _plant = plantObject.GetComponent<Plant>();
+            _plant.gameObject.SetActive(true);
+            _plant.PlantDisable += OnPlantDisable;
 
-        _plantRenderer = TryTakePlantRenderer(_plant);
+            _plantRenderer = TryTakePlantRenderer(_plant);
 
-        _grow = StartCoroutine(Grow(_plant, _growthTime, _plantRenderer));
+            _grow = StartCoroutine(Grow(_plant, _growthTime, _plantRenderer));
+        }
     }
 
     private PlantRenderer TryTakePlantRenderer(Plant plant) =>

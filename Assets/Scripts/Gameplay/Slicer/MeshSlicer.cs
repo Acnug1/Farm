@@ -15,7 +15,7 @@ public class MeshSlicer : MonoBehaviour
             {
                 Vector3 spawnPosition = objectToSlice.transform.position;
 
-                TryDestroyObjectToSlice(objectToSlice);
+                TryDisableObjectToSlice(objectToSlice);
 
                 foreach (GameObject slicedObject in slicedObjects)
                 {
@@ -34,10 +34,10 @@ public class MeshSlicer : MonoBehaviour
         return objectToSlice.SliceInstantiate(planeWorldPosition, planeWorldDirection, sliceMaterial);
     }
 
-    private void TryDestroyObjectToSlice(GameObject objectToSlice)
+    private void TryDisableObjectToSlice(GameObject objectToSlice)
     {
         if (objectToSlice.TryGetComponent(out Plant plant))
-            plant.Destroy();
+            plant.Disable();
     }
 
     private void SetPosition(GameObject slicedObject, Vector3 position)

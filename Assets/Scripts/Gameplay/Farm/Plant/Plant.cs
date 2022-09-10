@@ -13,23 +13,27 @@ public class Plant : MonoBehaviour
     private Collider _collider;
 
     public event UnityAction HarvestReady;
-    public event UnityAction PlantDestroy;
+    public event UnityAction PlantDisable;
 
     public PlantConfig PlantConfig => _plantConfig;
-    public bool HarvestIsReady { get; private set; } = false;
+    public bool HarvestIsReady { get; private set; }
 
     private void Awake()
     {
         Debug.Assert(_plantConfig != null, PlantConfigErrorMessage);
 
         _collider = GetComponent<Collider>();
+    }
 
+    private void OnEnable()
+    {
+        HarvestIsReady = false;
         DisableCollision(_collider);
     }
 
-    public void Destroy()
+    public void Disable()
     {
-        PlantDestroy?.Invoke();
+        PlantDisable?.Invoke();
     }
 
     public void SetScaleY(float currentScaleY)
