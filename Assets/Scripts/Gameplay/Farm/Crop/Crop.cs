@@ -65,9 +65,9 @@ public class Crop : MonoBehaviour
         _waitingBeforeSale = StartCoroutine(WaitingBeforeSale(containerForSale, waitingTime));
     }
 
-    private IEnumerator WaitingBeforeSale(Transform containerForSale, float sellCropDelay)
+    private IEnumerator WaitingBeforeSale(Transform containerForSale, float waitingTime)
     {
-        var waitForSeconds = new WaitForSeconds(sellCropDelay);
+        var waitForSeconds = new WaitForSeconds(waitingTime);
 
         yield return waitForSeconds;
 
