@@ -12,6 +12,9 @@ public class CropsView : MonoBehaviour
     {
         _player = PlayerInstance.Instance.GetComponent<Player>();
 
+        if (!_player)
+            throw new MissingComponentException();
+
         _cropsCounter.text = _player.CropsCount.ToString();
         _cropsMax.text = _player.MaxCropsCount.ToString();
 

@@ -20,6 +20,6 @@ public class PlayerCollisionHandler : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Mill mill))
-            _player.SellCrops(mill.ContainerForSale);
+            _player.TrySellCrops(mill.ContainerForSale);
     }
 }

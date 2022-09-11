@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,10 +15,11 @@ public class Crop : MonoBehaviour
     private Rigidbody _rigidbody;
     private Collider _collider;
     private Culture _culture;
-    private Coroutine _waitingBeforeSale;
+    private int _cropPrice;
 
     public event UnityAction<Transform, int> AttachToContainer;
     public event UnityAction<Transform> Selling;
+    public event UnityAction<Transform, Crop, int> Rewarding;
 
     public CropConfig CropConfig => _cropConfig;
 
@@ -30,6 +30,8 @@ public class Crop : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
 
+        _cropPrice = _cropConfig.CropPrice;
+
         DisableKinematic(_rigidbody);
         EnableCollision(_collider);
     }
@@ -37,11 +39,6 @@ public class Crop : MonoBehaviour
     public void Init(Culture culture)
     {
         _culture = culture;
-    }
-
-    public void Destroy()
-    {
-        Destroy(gameObject);
     }
 
     public void Reap(Transform cropContainer, int cropCount)
@@ -58,23 +55,21 @@ public class Crop : MonoBehaviour
         AttachToContainer?.Invoke(cropContainer, cropCount);
     }
 
-    public void Sell(Transform containerForSale, float waitingTime)
+    public void Sell(Transform containerForSale)
     {
-        if (_waitingBeforeSale != null)
-            return;
-
-        _waitingBeforeSale = StartCoroutine(WaitingBeforeSale(containerForSale, waitingTime));
-    }
-
-    private IEnumerator WaitingBeforeSale(Transform containerForSale, float waitingTime)
-    {
-        var waitForSeconds = new WaitForSeconds(waitingTime);
-
-        yield return waitForSeconds;
-
         ClearParent();
 
         Selling?.Invoke(containerForSale);
+    }
+
+    public void GetRewardForSale(Transform containerForSale)
+    {
+        Rewarding?.Invoke(containerForSale, this, _cropPrice);
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 
     private void SetParent(Transform cropContainer)

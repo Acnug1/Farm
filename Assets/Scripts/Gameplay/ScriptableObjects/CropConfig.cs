@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CropConfig : ScriptableObject
 {
-    [Tooltip("Стоимость одного блока пшеницы")]
+    [Tooltip("Стоимость одного стака урожая")]
     [Min(1)]
     [SerializeField] private int _cropPrice = 15;
     [Tooltip("Скорость движения стака урожая, при сборе в контейнер")]

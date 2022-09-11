@@ -101,8 +101,7 @@ public class CropMove : MonoBehaviour
         }
         while (Vector3.Distance(transform.position, containerForSale.position) != 0);
 
-        // спавн монетки
-
+        _crop.GetRewardForSale(containerForSale);
         _crop.Destroy();
     }
 

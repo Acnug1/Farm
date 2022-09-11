@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abb2dbb798f115740b1ba5fb5bcfb4df, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: 323244b723e5f4948abcda7639a55664, type: 3}
+  m_Name: CoinsSpawner
   m_EditorClassIdentifier: 
-  _maxCropCount: 40
-  _sellCropDelay: 0.1
+  _coinPrefab: {fileID: -2581092345222526393, guid: 6ed7dc83e74ecfa43a93dffc50501afb, type: 3}

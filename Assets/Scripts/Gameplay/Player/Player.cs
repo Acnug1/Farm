@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,7 +17,9 @@ public class Player : MonoBehaviour
     private int _maxCropCount;
     private float _sellCropDelay;
     private float _waitingTime;
+    private bool _isActiveSelling;
 
+    public event UnityAction<Crop> CropAdded;
     public event UnityAction<int> CropsCountChanged;
 
     public int CropsCount => _crops.Count;
@@ -33,24 +36,43 @@ public class Player : MonoBehaviour
 
     public void TryAdd(Crop crop)
     {
-        if (_crops.Count < _maxCropCount)
+        if (_crops.Count < _maxCropCount && !_isActiveSelling)
         {
             _crops.Push(crop);
             crop.Reap(_cropContainer, _crops.Count);
+            CropAdded?.Invoke(crop);
             CropsCountChanged?.Invoke(_crops.Count);
         }
     }
 
-    public void SellCrops(Transform containerForSale)
+    public void TrySellCrops(Transform containerForSale)
     {
-        while (_crops.Count > 0)
+        if (_crops.Count == 0 || _isActiveSelling)
+            return;
+
+        _isActiveSelling = true;
+
+        for (int i = 0; i < _crops.Count; i++)
         {
-            Crop crop = _crops.Pop();
             _waitingTime += _sellCropDelay;
-            crop.Sell(containerForSale, _waitingTime);
-            CropsCountChanged?.Invoke(_crops.Count);
+
+            StartCoroutine(WaitingBeforeSell(containerForSale, _waitingTime));
         }
 
         _waitingTime = 0;
+    }
+
+    private IEnumerator WaitingBeforeSell(Transform containerForSale, float waitingTime)
+    {
+        var waitForSeconds = new WaitForSeconds(waitingTime);
+
+        yield return waitForSeconds;
+
+        Crop crop = _crops.Pop();
+        crop.Sell(containerForSale);
+        CropsCountChanged?.Invoke(_crops.Count);
+
+        if (_crops.Count == 0)
+            _isActiveSelling = false;
     }
 }
