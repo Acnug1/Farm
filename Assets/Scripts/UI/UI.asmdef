@@ -1,11 +1,10 @@
 {
-    "name": "Gameplay",
+    "name": "UI",
     "rootNamespace": "",
     "references": [
-        "GUID:b42d3f2b4b2024b0fb4b93601f0faf4c",
-        "GUID:011daef7cfe68d54d86b3ef9e74fab7b",
-        "GUID:8c4dd21966739024fbd72155091d199e",
-        "GUID:dbc809e69e5baeb419bd6f8f49318503"
+        "GUID:564d01a8eaf34b94e9240947391d047f",
+        "GUID:dbc809e69e5baeb419bd6f8f49318503",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

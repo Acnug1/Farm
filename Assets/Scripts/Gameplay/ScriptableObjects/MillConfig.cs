@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MillConfig : ScriptableObject
 {
-    [Tooltip("Скорость вращения лопастей у мельницы")]
+    [Tooltip("Время, которое должно пройти до полного оборота вращения лопастей у мельницы")]
     [Min(1f)]
-    [SerializeField] private float _speedRotationBlades = 10f;
+    [SerializeField] private float _timeToFullRotation = 10f;
 
-    public float SpeedRotationBlades => _speedRotationBlades;
+    public float TimeToFullRotation => _timeToFullRotation;
 }

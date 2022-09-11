@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098cda2a987b36f47baf4871337e37ba, type: 3}
   m_Name: WheatCrop
   m_EditorClassIdentifier: 
+  _cropPrice: 15
   _moveSpeedToContainer: 10
   _rotateSpeedToContainer: 720
   _offsetYInContainer: 0.1

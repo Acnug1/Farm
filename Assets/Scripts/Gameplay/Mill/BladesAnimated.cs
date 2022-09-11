@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(Mill))]
@@ -5,12 +6,13 @@ using UnityEngine;
 public class BladesAnimated : MonoBehaviour
 {
     private const string BladesErrorMessage = "Blades is null";
+    private const int FullRotation = 360;
 
     [Tooltip("—сылка на Transform лопастей мельницы")]
     [SerializeField] private Transform _blades;
 
     private Mill _mill;
-    private float _speedRotationBlades;
+    private float _timeToFullRotation;
 
     private void Awake()
     {
@@ -18,16 +20,14 @@ public class BladesAnimated : MonoBehaviour
 
         _mill = GetComponent<Mill>();
 
-        _speedRotationBlades = _mill.MillConfig.SpeedRotationBlades;
+        _timeToFullRotation = _mill.MillConfig.TimeToFullRotation;
+
+        RotateBlades(_blades, _timeToFullRotation);
     }
 
-    private void Update()
+    private void RotateBlades(Transform blades, float timeToFullRotation)
     {
-        RotateBlades(_blades, _speedRotationBlades);
-    }
-
-    private void RotateBlades(Transform blades, float speed)
-    {
-        blades.Rotate(Vector3.forward * speed * Time.deltaTime, Space.Self);
+        Tween tween = blades.DOLocalRotate(Vector3.forward * FullRotation, timeToFullRotation, RotateMode.FastBeyond360);
+        tween.SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental);
     }
 }

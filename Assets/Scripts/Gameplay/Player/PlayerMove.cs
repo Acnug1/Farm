@@ -1,20 +1,19 @@
 using UnityEngine;
 
 [DefaultExecutionOrder(200)]
+[RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SurfaceSlider))]
 [RequireComponent(typeof(NavAgent))]
 
 public class PlayerMove : MonoBehaviour
 {
-    private const string PlayerInputErrorMessage = "PlayerInput is null";
     private const string PlayerMoveConfigErrorMessage = "PlayerMoveConfig is null";
 
-    [Tooltip("—сылка на PlayerInput")]
-    [SerializeField] private PlayerInput _playerInput;
     [Tooltip("—сылка на ScriptableObject: PlayerMoveConfig")]
     [SerializeField] private PlayerMoveConfig _playerMoveConfig;
 
+    private PlayerInput _playerInput;
     private Rigidbody _rigidbody;
     private SurfaceSlider _surfaceSlider;
     private NavAgent _navAgent;
@@ -25,9 +24,9 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Assert(_playerInput != null, PlayerInputErrorMessage);
         Debug.Assert(_playerMoveConfig != null, PlayerMoveConfigErrorMessage);
 
+        _playerInput = GetComponent<PlayerInput>();
         _rigidbody = GetComponent<Rigidbody>();
         _surfaceSlider = GetComponent<SurfaceSlider>();
         _navAgent = GetComponent<NavAgent>();

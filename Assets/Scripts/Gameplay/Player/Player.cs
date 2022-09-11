@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class Player : MonoBehaviour
     private float _sellCropDelay;
     private float _waitingTime;
 
+    public event UnityAction<int> CropsCountChanged;
+
+    public int CropsCount => _crops.Count;
+    public int MaxCropsCount => _maxCropCount;
+
     private void Awake()
     {
         Debug.Assert(_playerConfig != null, PlayerConfigErrorMessage);
@@ -31,6 +37,7 @@ public class Player : MonoBehaviour
         {
             _crops.Push(crop);
             crop.Reap(_cropContainer, _crops.Count);
+            CropsCountChanged?.Invoke(_crops.Count);
         }
     }
 
@@ -39,10 +46,9 @@ public class Player : MonoBehaviour
         while (_crops.Count > 0)
         {
             Crop crop = _crops.Pop();
-
             _waitingTime += _sellCropDelay;
-
             crop.Sell(containerForSale, _waitingTime);
+            CropsCountChanged?.Invoke(_crops.Count);
         }
 
         _waitingTime = 0;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CropConfig : ScriptableObject
 {
+    [Tooltip("Стоимость одного блока пшеницы")]
+    [Min(1)]
+    [SerializeField] private int _cropPrice = 15;
     [Tooltip("Скорость движения стака урожая, при сборе в контейнер")]
     [Min(1f)]
     [SerializeField] private float _moveSpeedToContainer = 10f;
@@ -14,6 +17,7 @@ public class CropConfig : ScriptableObject
     [Min(0.1f)]
     [SerializeField] private float _offsetYInContainer = 0.1f;
 
+    public int CropPrice => _cropPrice;
     public float MoveSpeedToContainer => _moveSpeedToContainer;
     public float RotateSpeedToContainer => _rotateSpeedToContainer;
     public float OffsetYInContainer => _offsetYInContainer;
