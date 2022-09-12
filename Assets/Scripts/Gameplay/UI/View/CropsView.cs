@@ -28,6 +28,6 @@ public class CropsView : MonoBehaviour
 
     private void OnCropsCountChanged(int cropsCount)
     {
-        _cropsCounter.text = _player.CropsCount.ToString();
+        _cropsCounter.text = cropsCount.ToString();
     }
 }

@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 
     public event UnityAction<Crop> CropAdded;
     public event UnityAction<int> CropsCountChanged;
+    public event UnityAction<int> RewardTaken;
 
     public int CropsCount => _crops.Count;
     public int MaxCropsCount => _maxCropCount;
@@ -32,6 +33,11 @@ public class Player : MonoBehaviour
 
         _maxCropCount = _playerConfig.MaxCropCount;
         _sellCropDelay = _playerConfig.SellCropDelay;
+    }
+
+    public void GetReward(int cropPrice)
+    {
+        RewardTaken?.Invoke(cropPrice);
     }
 
     public void TryAdd(Crop crop)

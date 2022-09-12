@@ -15,7 +15,7 @@ public class NavAgent : MonoBehaviour
 
     public void Move(Vector3 direction, float speed)
     {
-        _agent.velocity = direction * speed;
+        _agent.velocity = direction * speed * Time.fixedDeltaTime;
     }
 
     public void Stop()

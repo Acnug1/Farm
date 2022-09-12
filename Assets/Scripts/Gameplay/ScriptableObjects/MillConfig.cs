@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MillConfig : ScriptableObject
 {
-    [Tooltip("Время, которое должно пройти до полного оборота вращения лопастей у мельницы")]
+    [Tooltip("Время, которое должно пройти до полного оборота вращения лопастей у мельницы (Влияет только на анимацию)")]
     [Min(1f)]
     [SerializeField] private float _timeToFullRotation = 10f;
 
