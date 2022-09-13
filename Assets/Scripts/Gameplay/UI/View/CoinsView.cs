@@ -1,11 +1,21 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CoinsView : MonoBehaviour
 {
+    private const string CoinsCounterErrorMessage = "CoinsCounter is null";
+
+    [Tooltip("—сылка на счетчик монеток")]
     [SerializeField] private TMP_Text _coinsCounter;
+    [SerializeField] private UnityEvent _onMoneyCountChanged;
 
     private PlayerWallet _playerWallet;
+
+    private void Awake()
+    {
+        Debug.Assert(_coinsCounter != null, CoinsCounterErrorMessage);
+    }
 
     private void Start()
     {
@@ -27,5 +37,6 @@ public class CoinsView : MonoBehaviour
     private void OnMoneyCountChanged(int money)
     {
         _coinsCounter.text = money.ToString();
+        _onMoneyCountChanged?.Invoke();
     }
 }

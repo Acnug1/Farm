@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfae465930ddce246a3b3b7d2380b3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 8018995130379351227}
   _plantContainer: {fileID: 8018995130379351227}
   _cultureConfig: {fileID: 11400000, guid: 949f430679a857f4fa2a31a6f7e765a7, type: 2}
 --- !u!1 &5452796793003511078
@@ -115,7 +114,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
+  m_ReceiveGI: 2
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

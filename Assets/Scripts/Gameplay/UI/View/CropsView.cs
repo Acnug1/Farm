@@ -1,12 +1,25 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CropsView : MonoBehaviour
 {
+    private const string CropsCounterErrorMessage = "CropsCounter is null";
+    private const string CropsMaxErrorMessage = "CropsMax is null";
+
+    [Tooltip("—сылка на счетчик стаков урожа€")]
     [SerializeField] private TMP_Text _cropsCounter;
+    [Tooltip("—сылка на счетчик, в котором указано максимальное количество стаков урожа€, которое может подобрать игрок")]
     [SerializeField] private TMP_Text _cropsMax;
+    [SerializeField] private UnityEvent _onCropsCountChanged;
 
     private Player _player;
+
+    private void Awake()
+    {
+        Debug.Assert(_cropsCounter != null, CropsCounterErrorMessage);
+        Debug.Assert(_cropsMax != null, CropsMaxErrorMessage);
+    }
 
     private void Start()
     {
@@ -29,5 +42,6 @@ public class CropsView : MonoBehaviour
     private void OnCropsCountChanged(int cropsCount)
     {
         _cropsCounter.text = cropsCount.ToString();
+        _onCropsCountChanged?.Invoke();
     }
 }
