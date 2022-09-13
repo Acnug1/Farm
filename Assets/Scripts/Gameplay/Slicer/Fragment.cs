@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -33,9 +34,9 @@ public class Fragment : MonoBehaviour
 
         for (float remainingTime = timeOfDisappearance; remainingTime > 0; remainingTime -= Time.deltaTime)
         {
-            remainingTime = Mathf.Clamp(remainingTime, 0f, timeOfDisappearance);
+            remainingTime = Mathf.Clamp(remainingTime, 0, timeOfDisappearance);
 
-            gameObject.transform.localScale = fragmentScale * GetNormalizeTime(remainingTime, timeOfDisappearance);
+            gameObject.transform.localScale = fragmentScale * GetNormalizeValue(remainingTime, timeOfDisappearance);
 
             yield return waitForEndOfFrame;
         }
@@ -43,5 +44,11 @@ public class Fragment : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private float GetNormalizeTime(float remainingTime, float timeOfDisappearance) => remainingTime / timeOfDisappearance;
+    private float GetNormalizeValue(float remainingTime, float totalTime)
+    {
+        if (remainingTime < 0 || totalTime <= 0)
+            throw new InvalidOperationException();
+
+        return remainingTime / totalTime;
+    }
 }

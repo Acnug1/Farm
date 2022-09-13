@@ -2,7 +2,6 @@ using UnityEngine;
 
 [DefaultExecutionOrder(200)]
 [RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SurfaceSlider))]
 [RequireComponent(typeof(NavAgent))]
 
@@ -14,7 +13,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private PlayerMoveConfig _playerMoveConfig;
 
     private PlayerInput _playerInput;
-    private Rigidbody _rigidbody;
     private SurfaceSlider _surfaceSlider;
     private NavAgent _navAgent;
     private PlayerAnimatorController _playerAnimatorController;
@@ -27,7 +25,6 @@ public class PlayerMove : MonoBehaviour
         Debug.Assert(_playerMoveConfig != null, PlayerMoveConfigErrorMessage);
 
         _playerInput = GetComponent<PlayerInput>();
-        _rigidbody = GetComponent<Rigidbody>();
         _surfaceSlider = GetComponent<SurfaceSlider>();
         _navAgent = GetComponent<NavAgent>();
         _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
@@ -36,7 +33,7 @@ public class PlayerMove : MonoBehaviour
         _layerMask = _playerMoveConfig.LayerMask;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         _direction = GetDirection(_playerInput.Direction);
 
@@ -64,12 +61,11 @@ public class PlayerMove : MonoBehaviour
 
     private void Rotate(Vector3 direction)
     {
-        _rigidbody.rotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 
     private void Stop()
     {
-        _navAgent.Stop();
         _playerAnimatorController.SpeedChanged(0);
     }
 }

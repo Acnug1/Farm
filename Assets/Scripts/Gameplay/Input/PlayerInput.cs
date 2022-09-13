@@ -5,10 +5,5 @@ using InControl;
 
 public class PlayerInput : MonoBehaviour
 {
-    public Vector2 Direction { get; private set; }
-
-    private void Update()
-    {
-        Direction = InputManager.ActiveDevice.Direction.Value;
-    }
+    public Vector2 Direction => InputManager.ActiveDevice.Direction.Value;
 }
