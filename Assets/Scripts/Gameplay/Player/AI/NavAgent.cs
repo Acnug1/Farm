@@ -11,8 +11,18 @@ public class NavAgent : MonoBehaviour
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _agent.enabled = true;
+        Enable(_agent);
 
+        SetPositionOnNavMesh();
+    }
+
+    private void Enable(NavMeshAgent agent)
+    {
+        agent.enabled = true;
+    }
+
+    private void SetPositionOnNavMesh()
+    {
         if (NavMesh.SamplePosition(transform.position, out NavMeshHit closestHit, 4f, NavMesh.AllAreas))
         {
             transform.position = closestHit.position;
@@ -21,7 +31,7 @@ public class NavAgent : MonoBehaviour
 
     public void Move(Vector3 direction, float speed)
     {
-        Vector3 movement = direction * speed * Time.deltaTime;
+        Vector3 movement = direction * speed * Time.fixedDeltaTime;
 
         _agent.Move(movement);
     }

@@ -33,7 +33,7 @@ public class PlayerMove : MonoBehaviour
         _layerMask = _playerMoveConfig.LayerMask;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _direction = GetDirection(_playerInput.Direction);
 
