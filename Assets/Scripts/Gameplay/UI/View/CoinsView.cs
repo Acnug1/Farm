@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
+[DefaultExecutionOrder(200)]
+
 public class CoinsView : MonoBehaviour
 {
     private const string CoinsCounterErrorMessage = "CoinsCounter is null";

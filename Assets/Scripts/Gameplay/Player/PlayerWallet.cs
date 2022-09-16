@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+[DefaultExecutionOrder(100)]
 [RequireComponent(typeof(Player))]
 
 public class PlayerWallet : MonoBehaviour
@@ -12,17 +13,16 @@ public class PlayerWallet : MonoBehaviour
 
     public int Money { get; private set; }
 
-    private void Awake()
+    private void Start()
     {
         _player = GetComponent<Player>();
-    }
 
-    private void OnEnable()
-    {
+        Money = SavedData.Instance.LoadMoneyData();
+
         _player.RewardTaken += OnRewardTaken;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _player.RewardTaken -= OnRewardTaken;
     }

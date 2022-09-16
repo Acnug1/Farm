@@ -8,7 +8,7 @@ public class NavAgent : MonoBehaviour
 {
     private NavMeshAgent _agent;
 
-    private void Awake()
+    private void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         Enable(_agent);

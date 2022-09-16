@@ -11,7 +11,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
     private static T _instance;
 
     [Tooltip("Автоматически инициализировать класс при загрузке")]
-    [SerializeField] private bool _autoInitializeOnStart = true;
+    [SerializeField] private bool _autoInitializeOnAwake = true;
 
     #pragma warning disable CS0108
     [Tooltip("Не уничтожать объект при переключении на другую сцену")]
@@ -49,11 +49,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
             Debug.LogWarning($"[Singleton] Instance {typeof(T)} already exists. Destroying {name}...");
             DestroyImmediate(gameObject);
         }
-    }
 
-    protected virtual void Start()
-    {
-        if (_autoInitializeOnStart)
+        if (_autoInitializeOnAwake)
             Initialize();
     }
 }

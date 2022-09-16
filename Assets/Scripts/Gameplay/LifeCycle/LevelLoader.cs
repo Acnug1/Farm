@@ -1,37 +1,50 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
+[RequireComponent(typeof(GameOver))]
+
+/// <summary>
+/// Загружает префаб текущего уровня
+/// </summary>
 public class LevelLoader : MonoBehaviour
 {
-    private const string StartTransition = nameof(StartTransition);
-    private const int LeftMouseButton = 0;
+    private GameOver _gameOver;
+    private LevelsList _levelsList;
 
-    [SerializeField] private Animator _animator;
-    [SerializeField] private string _nextLevelName;
+    public event UnityAction VictoryMenuOpening;
+    public event UnityAction DefeatMenuOpening;
 
-    private Coroutine _loadScene;
-
-    private void Update()
+    private void Awake()
     {
-        if (Input.GetMouseButtonDown(LeftMouseButton))
-            LoadNextLevel();
+        _gameOver = GetComponent<GameOver>();
+        _levelsList = LevelsList.Instance;
+
+        if (_levelsList.CheckAsserts())
+        {
+            // Загружаем префаб уровня
+            Time.timeScale = 1f;
+            Instantiate(_levelsList.CurrentLevel);
+        }
+
+        _gameOver.Victory += OnVictory;
+        _gameOver.Defeat += OnDefeat;
     }
 
-    private void LoadNextLevel()
+    private void OnDestroy()
     {
-        if (_loadScene != null)
-            return;
-
-        _loadScene = StartCoroutine(LoadScene(_nextLevelName));
+        _gameOver.Victory -= OnVictory;
+        _gameOver.Defeat -= OnDefeat;
     }
 
-    private IEnumerator LoadScene(string sceneName)
+    private void OnVictory()
     {
-        _animator.SetTrigger(StartTransition);
+        // Переходим на следующий уровень
+        _levelsList.CurrentLevelIndex++;
+        VictoryMenuOpening?.Invoke();
+    }
 
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
-
-        SceneManager.LoadScene(sceneName);
+    private void OnDefeat()
+    {
+        DefeatMenuOpening?.Invoke();
     }
 }
