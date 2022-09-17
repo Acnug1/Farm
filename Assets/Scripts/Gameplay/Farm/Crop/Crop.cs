@@ -39,20 +39,25 @@ public class Crop : MonoBehaviour
     public void Init(Culture culture)
     {
         _culture = culture;
+
+        if (!_culture)
+            throw new InvalidOperationException();
     }
 
     public void Reap(Transform cropContainer, int cropCount)
     {
-        if (!_culture)
-            throw new InvalidOperationException();
-
-        _culture.Reap();
+        Harvest();
 
         EnableKinematic(_rigidbody);
         DisableCollision(_collider);
         SetParent(cropContainer);
 
         AttachToContainer?.Invoke(cropContainer, cropCount);
+    }
+
+    public void Harvest()
+    {
+        _culture.Harvest();
     }
 
     public void Sell(Transform containerForSale)

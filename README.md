@@ -9,5 +9,5 @@
 <br/>
 <br/>
 ##### Видео на youtube с записью геймплея игры:
-[![](http://img.youtube.com/vi/dSr3fQiggN8/0.jpg)](https://youtu.be/dSr3fQiggN8)
+[![](http://img.youtube.com/vi/E6gJyDuKTJs/0.jpg)](https://youtu.be/E6gJyDuKTJs)
 <br/>

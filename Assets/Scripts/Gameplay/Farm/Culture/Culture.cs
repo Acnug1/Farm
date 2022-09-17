@@ -47,7 +47,7 @@ public class Culture : ObjectPool
         _plant.gameObject.SetActive(false);
     }
 
-    public void Reap()
+    public void Harvest()
     { 
         IsExists = false;
     }

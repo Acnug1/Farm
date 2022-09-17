@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2948747ec2002e44fa079bb3f33718b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _autoInitializeOnStart: 1
+  _autoInitializeOnAwake: 1
   DontDestroyOnLoad: 0
   _victoryConditionsConfig: {fileID: 11400000, guid: 00f2ae97e81747d4eb1ae0cfd8e8a0a4, type: 2}
 --- !u!114 &8392117792417648470

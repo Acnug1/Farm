@@ -19,6 +19,9 @@ public class PlantHarvest : MonoBehaviour
         _offsetOfSpawnCropPrefab = _plant.PlantConfig.OffsetOfSpawnCropPrefab;
         _culture = GetComponentInParent<Culture>();
 
+        if (!_culture)
+            throw new InvalidOperationException();
+
         Debug.Assert(_cropPrefab != null, CropPrefabErrorMessage);
     }
 
@@ -34,9 +37,6 @@ public class PlantHarvest : MonoBehaviour
 
     private void OnPlantDisable()
     {
-        if (!_culture)
-            throw new InvalidOperationException();
-
         CreateCrop(_cropPrefab, _offsetOfSpawnCropPrefab, _culture);
     }
 

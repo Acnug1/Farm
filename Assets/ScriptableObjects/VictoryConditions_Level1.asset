@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a766d638c6079f648887ad5e16cb9dc0, type: 3}
   m_Name: VictoryConditions_Level1
   m_EditorClassIdentifier: 
-  _targetAmountOfMoney: 1000
+  _targetAmountOfMoney: 500
